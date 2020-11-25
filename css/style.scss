@@ -1,0 +1,34 @@
+@charset "UTF-8";
+
+@import "./generic";
+@import "./sass/";
+
+@import "../js/components/Header/header";
+@import "../js/components/Rating/rating";
+@import "../js/components/Board/Board";
+@import "../js/components/Footer/footer";
+
+body {
+  font-family: "Oswald", sans-serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: $brown-4;
+  background-color: $white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+main {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, $xl) 1fr $xl;
+  grid-template-areas:
+    "header header"
+    "rating rating"
+    "board board"
+    "footer footer";
+  height: 100%;
+}

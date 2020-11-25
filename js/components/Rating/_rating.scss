@@ -1,0 +1,9 @@
+.rating {
+  grid-area: rating;
+  margin: 0 $xs;
+  border-bottom: 1px solid $gray;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
