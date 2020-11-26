@@ -4,8 +4,12 @@ import { Footer } from "./components/Footer/Footer.js";
 import { Board } from "./components/Board/Board.js";
 import { Rating } from "./components/Rating/Rating.js";
 
-const App = html`
-  <main class="main">${Header} ${Rating} ${Board} ${Footer}</main>
-`;
+class App extends Component {
+  render() {
+    return html`
+      <main class="main">${Header} ${Rating} ${Board} ${Footer}</main>
+    `;
+  }
+}
 
 export { App };

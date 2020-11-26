@@ -6,6 +6,6 @@ import {
 
 import { App } from "./App.js";
 
-render(html`${App}`, document.body);
+render(html`<${App} />`, document.body);
 
 export { html, render, Component };

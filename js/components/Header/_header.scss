@@ -12,16 +12,9 @@
     margin-right: auto;
   }
 
-  .logo {
-    display: none;
-  }
-
   h1 {
+    display: inline-block;
     font-size: $base;
     font-weight: normal;
-  }
-
-  .nav {
-    color: $beige;
   }
 }

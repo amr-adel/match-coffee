@@ -102,15 +102,21 @@ html {
 .header .brand {
   margin-right: auto;
 }
-.header .logo {
-  display: none;
-}
 .header h1 {
+  display: inline-block;
   font-size: var(--base);
   font-weight: normal;
 }
-.header .nav {
-  color: var(--beige);
+
+.nav .toggle {
+  width: var(--base);
+  height: var(--base);
+  color: inherit;
+  cursor: pointer;
+}
+.nav svg {
+  height: 100%;
+  width: 100%;
 }
 
 .rating {
