@@ -1,5 +1,5 @@
-import { html } from "../../index.js";
+import { h } from "../../index.js";
 
-const Footer = html` <footer class="footer">Footer</footer> `;
+const Footer = h("footer", { class: "footer" }, "Footer");
 
 export { Footer };

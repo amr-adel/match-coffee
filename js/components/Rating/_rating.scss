@@ -4,6 +4,11 @@
   border-bottom: 1px solid $gray;
 
   display: flex;
-  justify-content: center;
   align-items: center;
+
+  img {
+    height: $l;
+    width: auto;
+    margin-right: $xxs;
+  }
 }

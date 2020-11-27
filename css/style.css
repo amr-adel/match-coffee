@@ -124,8 +124,12 @@ html {
   margin: 0 var(--xs);
   border-bottom: 1px solid var(--gray);
   display: flex;
-  justify-content: center;
   align-items: center;
+}
+.rating img {
+  height: var(--l);
+  width: auto;
+  margin-right: var(--xxs);
 }
 
 .board {

@@ -1,5 +1,5 @@
-import { html } from "../../index.js";
+import { h } from "../../index.js";
 
-const Board = html`<div class="board">Board</div> `;
+const Board = h("div", { class: "board" }, "Board");
 
 export { Board };

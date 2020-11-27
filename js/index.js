@@ -1,11 +1,7 @@
-import {
-  html,
-  render,
-  Component,
-} from "https://unpkg.com/htm/preact/standalone.module.js";
+import { h, Component, render } from "https://unpkg.com/preact?module";
 
 import { App } from "./App.js";
 
-render(html`<${App} />`, document.body);
+render(App, document.body);
 
-export { html, render, Component };
+export { h, Component, render };

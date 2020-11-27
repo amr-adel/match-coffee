@@ -1,11 +1,9 @@
-import { html } from "../index.js";
+import { h } from "../index.js";
 
-const Icon = ({ name }) => {
+const Icon = (name) => {
   return name === "bean"
-    ? html`<img src="./images/coffee-bean.svg" />`
-    : html`<svg>
-        <use href="./images/icons.svg#${name}" />
-      </svg>`;
+    ? h("img", { src: "./images/coffee-bean.svg" })
+    : h("svg", null, h("use", { href: `./images/icons.svg#${name}` }));
 };
 
 export { Icon };
