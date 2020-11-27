@@ -12,7 +12,7 @@ const Rating = (count) => {
   return h(
     "ul",
     { class: "rating" },
-    beans.map(() => Icon("bean"))
+    beans.map(() => h(Icon, { name: "bean" }))
   );
 };
 

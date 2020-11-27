@@ -127,7 +127,7 @@ html {
   align-items: center;
 }
 .rating img {
-  height: var(--l);
+  height: var(--base);
   width: auto;
   margin-right: var(--xxs);
 }

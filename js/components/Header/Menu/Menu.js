@@ -18,7 +18,7 @@ class Menu extends Component {
       h(
         "button",
         { class: "toggle", onClick: () => this.toggle() },
-        Icon(showMenu ? "close" : "menu")
+        h(Icon, { name: showMenu ? "close" : "menu" })
       )
     );
   }
