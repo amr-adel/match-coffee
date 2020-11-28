@@ -50,6 +50,11 @@ img {
   display: block;
 }
 
+svg {
+  max-height: 100%;
+  max-width: 100%;
+}
+
 a,
 a:visited {
   color: inherit;
@@ -68,6 +73,7 @@ button {
   border: none;
   border-radius: 0;
   background: none;
+  color: inherit;
 }
 
 .noselect {
@@ -111,17 +117,12 @@ html {
 .nav .toggle {
   width: var(--base);
   height: var(--base);
-  color: inherit;
   cursor: pointer;
-}
-.nav svg {
-  height: 100%;
-  width: 100%;
 }
 
 .rating {
-  grid-area: rating;
-  margin: 0 var(--xs);
+  grid-area: beans;
+  margin-left: var(--xs);
   border-bottom: 1px solid var(--gray);
   display: flex;
   align-items: center;
@@ -130,6 +131,20 @@ html {
   height: var(--base);
   width: auto;
   margin-right: var(--xxs);
+}
+
+.restart {
+  grid-area: restart;
+  margin-right: var(--xs);
+  border-bottom: 1px solid var(--gray);
+  color: var(--brown-1);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.restart button {
+  height: var(--base);
+  width: var(--base);
 }
 
 .board {
@@ -141,12 +156,44 @@ html {
   align-items: center;
 }
 
-.footer {
-  grid-area: footer;
+.stopwatch {
+  grid-area: stopwatch;
   background-color: var(--beige-d);
+  color: var(--brown-3);
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.stopwatch svg {
+  color: var(--brown-1);
+  height: var(--base);
+  width: var(--base);
+  margin-right: var(--xxs);
+}
+.stopwatch span {
+  font-size: var(--base);
+  line-height: var(--base);
+  width: 33%;
+}
+
+.moves {
+  grid-area: moves;
+  background-color: var(--beige-d);
+  color: var(--brown-3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.moves svg {
+  color: var(--brown-1);
+  height: var(--base);
+  width: var(--base);
+  margin-right: var(--xxs);
+}
+.moves span {
+  font-size: var(--base);
+  line-height: var(--base);
+  width: 33%;
 }
 
 body {
@@ -166,7 +213,7 @@ main {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, var(--xl)) 1fr var(--xl);
-  grid-template-areas: "header header" "rating rating" "board board" "footer footer";
+  grid-template-areas: "header header" "beans restart" "board board" "stopwatch moves";
   height: 100%;
 }
 

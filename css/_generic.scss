@@ -61,6 +61,11 @@ img {
   display: block;
 }
 
+svg {
+  max-height: 100%;
+  max-width: 100%;
+}
+
 a,
 a:visited {
   color: inherit;
@@ -79,6 +84,7 @@ button {
   border: none;
   border-radius: 0;
   background: none;
+  color: inherit;
 }
 
 .noselect {

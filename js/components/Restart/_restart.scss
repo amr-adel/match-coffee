@@ -1,0 +1,15 @@
+.restart {
+  grid-area: restart;
+  margin-right: $xs;
+  border-bottom: 1px solid $gray;
+  color: $brown-1;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  button {
+    height: $base;
+    width: $base;
+  }
+}

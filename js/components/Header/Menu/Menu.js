@@ -2,8 +2,8 @@ import { Component, h } from "../../../index.js";
 import { Icon } from "../../Icon.js";
 
 class Menu extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = { showMenu: false };
   }
 

@@ -1,18 +1,18 @@
 import { h } from "../../index.js";
 import { Icon } from "../Icon.js";
 
-const Rating = (count) => {
-  const beans = [];
+const Rating = ({ beans }) => {
+  const beansArr = [];
 
-  while (count > 0) {
-    count--;
-    beans.push("bean");
+  while (beans > 0) {
+    beans--;
+    beansArr.push("bean");
   }
 
   return h(
     "ul",
     { class: "rating" },
-    beans.map(() => h(Icon, { name: "bean" }))
+    beansArr.map(() => h(Icon, { name: "bean" }))
   );
 };
 

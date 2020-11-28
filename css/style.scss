@@ -6,8 +6,10 @@
 @import "../js/components/Header/header";
 @import "../js/components/Header/Menu/menu";
 @import "../js/components/Rating/rating";
+@import "../js/components/Restart/restart";
 @import "../js/components/Board/Board";
-@import "../js/components/Footer/footer";
+@import "../js/components/Stopwatch/stopwatch";
+@import "../js/components/Moves/moves";
 
 body {
   font-family: "Oswald", sans-serif;
@@ -28,8 +30,8 @@ main {
   grid-template-rows: repeat(2, $xl) 1fr $xl;
   grid-template-areas:
     "header header"
-    "rating rating"
+    "beans restart"
     "board board"
-    "footer footer";
+    "stopwatch moves";
   height: 100%;
 }

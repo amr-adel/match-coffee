@@ -1,0 +1,21 @@
+@mixin footerData {
+  background-color: $beige-d;
+  color: $brown-3;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  svg {
+    color: $brown-1;
+    height: $base;
+    width: $base;
+    margin-right: $xxs;
+  }
+
+  span {
+    font-size: $base;
+    line-height: $base;
+    width: 33%;
+  }
+}
