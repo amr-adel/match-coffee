@@ -1,4 +1,4 @@
-import { h, Component, render } from "./index.js";
+import { h, Component } from "./index.js";
 
 import { Header } from "./components/Header/Header.js";
 import { Board } from "./components/Board/Board.js";
@@ -8,7 +8,7 @@ import { Stopwatch } from "./components/Stopwatch/Stopwatch.js";
 import { Moves } from "./components/Moves/Moves.js";
 
 const initialState = {
-  time: 120,
+  time: 90,
   moves: 0,
   beans: 5,
 };
@@ -45,7 +45,7 @@ class App extends Component {
       Header,
       h(Restart, { init: this.init }),
       h(Rating, { beans }),
-      Board,
+      h(Board),
       h(Stopwatch, { time }),
       h(Moves, { moves })
     );

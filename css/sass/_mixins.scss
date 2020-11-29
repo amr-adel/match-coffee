@@ -16,6 +16,7 @@
   span {
     font-size: $base;
     line-height: $base;
-    width: 33%;
+    width: 25%;
+    margin-top: -5px; // Sorry for using a magic number
   }
 }

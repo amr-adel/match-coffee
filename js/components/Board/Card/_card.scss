@@ -1,0 +1,51 @@
+.card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: $roundness;
+  // border: 2px solid $brown-2;
+
+  background: url(../images/coffee-bean.svg) no-repeat center;
+  background-size: contain;
+
+  &[data-bgId="n78d2ps"] {
+    /*    border: 4px solid #eb3b5a;*/
+    background-image: url(../images/cards/card-1.svg);
+  }
+
+  &[data-bgId="n8sd1p0"] {
+    /*    border: 4px solid #fa8231;*/
+    background-image: url(../images/cards/card-2.svg);
+  }
+
+  &[data-bgId="n74dfp6"] {
+    /*    border: 4px solid #f7b731;*/
+    background-image: url(../images/cards/card-3.svg);
+  }
+
+  &[data-bgId="n06d9pa"] {
+    /*    border: 4px solid #20bf6b;*/
+    background-image: url(../images/cards/card-4.svg);
+  }
+
+  &[data-bgId="n5rdmp2"] {
+    /*    border: 4px solid #0fb9b1;*/
+    background-image: url(../images/cards/card-5.svg);
+  }
+
+  &[data-bgId="n18dypr"] {
+    /*    border: 4px solid #2d98da;*/
+    background-image: url(../images/cards/card-6.svg);
+  }
+
+  &[data-bgId="n6pdipz"] {
+    /*    border: 4px solid #3867d6;*/
+    background-image: url(../images/cards/card-7.svg);
+  }
+
+  &[data-bgId="n75dnpc"] {
+    /*    border: 4px solid #8854d0;*/
+    background-image: url(../images/cards/card-8.svg);
+  }
+}

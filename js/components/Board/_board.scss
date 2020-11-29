@@ -1,9 +1,18 @@
 .board {
   grid-area: board;
   margin: $xs;
-  background-color: $gray;
 
   display: flex;
   justify-content: center;
   align-items: center;
+
+  .cards-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    grid-row-gap: $s;
+    grid-column-gap: $s;
+    width: min(calc(100vw - var(--base)), calc(100vh - calc(4 * var(--xl))));
+    height: min(calc(100vw - var(--base)), calc(100vh - calc(4 * var(--xl))));
+  }
 }
