@@ -145,6 +145,7 @@ html {
 .restart button {
   height: var(--base);
   width: var(--base);
+  cursor: pointer;
 }
 
 .board {
@@ -168,6 +169,7 @@ html {
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
   border-radius: var(--roundness);
   background: url(../images/coffee-bean.svg) no-repeat center;
   background-size: contain;

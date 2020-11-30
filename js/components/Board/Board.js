@@ -37,24 +37,29 @@ const shuffle = (array) => {
   return array;
 };
 
+const initialState = {
+  glance: null,
+  matches: 0,
+  cards: [],
+  hold: false,
+  stopwatchInitiated: false,
+};
+
 class Board extends Component {
-  state = {
-    glance: null,
-    matches: 0,
-    cards: [],
-    hold: false,
-  };
+  state = initialState;
 
   componentDidMount() {
     this.newBoard();
   }
 
+  // Check if the game was restarted
   componentDidUpdate(prevProps) {
     if (this.props.game !== prevProps.game) {
       this.newBoard();
     }
   }
 
+  // Reshuffle and initialize for new game
   newBoard = () => {
     const cards = shuffle(cardDataIds).map((bgId, i) => ({
       cardId: `card-${i}`,
@@ -62,21 +67,29 @@ class Board extends Component {
       matched: false,
       bgId,
     }));
-    this.setState({ cards });
+    this.setState({ ...initialState, cards });
   };
 
+  // Card matching logic
   reveal = (cardId) => {
-    const { cards, glance, hold, matches } = this.state;
+    const { glance, matches, cards, hold } = this.state;
+
+    // Start stopwatch
+    if (!this.state.stopwatchInitiated) {
+      this.props.startStopwatch();
+      this.setState({ stopwatchInitiated: true });
+    }
 
     const currentCard = cards.filter((card) => card.cardId === cardId)[0];
 
-    if (hold || currentCard.matched || (glance && glance.cardId === cardId)) {
-      console.log("aborted");
+    // Abort if game on "hold", clicking "matched" card or the same card
+    if (hold || currentCard.matched || (glance && glance.cardId === cardId))
       return;
-    }
 
+    // Hold game to avoid fast random clicks
     this.setState({ hold: true });
 
+    // Reveal clicked card
     const cardsUpdated = cards.map((card) => {
       if (card.cardId === cardId) return { ...card, show: true };
       return card;
@@ -86,32 +99,46 @@ class Board extends Component {
 
     if (!glance) {
       this.setState({ glance: currentCard, hold: false });
-    } else if (currentCard.bgId !== glance.bgId) {
-      const cardsUpdated = cards.map((card) => {
-        if (card.cardId === currentCard.cardId || card.cardId === glance.cardId)
-          return { ...card, show: false };
-        return card;
-      });
+    } else {
+      this.props.incrementMoves();
 
-      setTimeout(() => {
-        this.setState({ glance: null, cards: cardsUpdated, hold: false });
-      }, 750);
-    } else if (currentCard.bgId === glance.bgId) {
-      const cardsUpdated = cards.map((card) => {
-        if (card.bgId === currentCard.bgId)
-          return { ...card, matched: true, show: true };
-        return card;
-      });
+      const positiveMatch = currentCard.bgId === glance.bgId;
 
-      this.setState({
-        cards: cardsUpdated,
+      const cardsUpdated = positiveMatch
+        ? // If the seconed card does match the first one, mark them as matched and keep visible
+          cards.map((card) => {
+            if (card.bgId === currentCard.bgId)
+              return { ...card, show: true, matched: true };
+            return card;
+          })
+        : // If the seconed card doesn't match the first one, hide both
+          cards.map((card) => {
+            if (
+              card.cardId === currentCard.cardId ||
+              card.cardId === glance.cardId
+            )
+              return { ...card, show: false };
+            return card;
+          });
+
+      const newState = {
         glance: null,
+        matches: positiveMatch ? (this.state.matches += 1) : this.state.matches,
+        cards: cardsUpdated,
         hold: false,
-        matches: (this.state.matches += 1),
-      });
+      };
 
-      if (matches === 7) {
-        console.log("Success");
+      if (positiveMatch) {
+        this.setState(newState);
+
+        if (matches === 7) {
+          console.log("Success");
+        }
+      } else {
+        // Delay hiding the unmatched cards
+        setTimeout(() => {
+          this.setState(newState);
+        }, 750);
       }
     }
   };
