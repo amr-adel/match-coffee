@@ -40,26 +40,80 @@ const shuffle = (array) => {
 class Board extends Component {
   state = {
     glance: null,
-    matched: [],
+    matches: 0,
     cards: [],
+    hold: false,
   };
 
   componentDidMount() {
+    this.newBoard();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.game !== prevProps.game) {
+      this.newBoard();
+    }
+  }
+
+  newBoard = () => {
     const cards = shuffle(cardDataIds).map((bgId, i) => ({
       cardId: `card-${i}`,
       show: false,
+      matched: false,
       bgId,
     }));
     this.setState({ cards });
-  }
+  };
 
   reveal = (cardId) => {
-    const { cards } = this.state;
-    const updated = cards.map((card) => {
+    const { cards, glance, hold, matches } = this.state;
+
+    const currentCard = cards.filter((card) => card.cardId === cardId)[0];
+
+    if (hold || currentCard.matched || (glance && glance.cardId === cardId)) {
+      console.log("aborted");
+      return;
+    }
+
+    this.setState({ hold: true });
+
+    const cardsUpdated = cards.map((card) => {
       if (card.cardId === cardId) return { ...card, show: true };
       return card;
     });
-    this.setState({ cards: updated });
+
+    this.setState({ cards: cardsUpdated });
+
+    if (!glance) {
+      this.setState({ glance: currentCard, hold: false });
+    } else if (currentCard.bgId !== glance.bgId) {
+      const cardsUpdated = cards.map((card) => {
+        if (card.cardId === currentCard.cardId || card.cardId === glance.cardId)
+          return { ...card, show: false };
+        return card;
+      });
+
+      setTimeout(() => {
+        this.setState({ glance: null, cards: cardsUpdated, hold: false });
+      }, 750);
+    } else if (currentCard.bgId === glance.bgId) {
+      const cardsUpdated = cards.map((card) => {
+        if (card.bgId === currentCard.bgId)
+          return { ...card, matched: true, show: true };
+        return card;
+      });
+
+      this.setState({
+        cards: cardsUpdated,
+        glance: null,
+        hold: false,
+        matches: (this.state.matches += 1),
+      });
+
+      if (matches === 7) {
+        console.log("Success");
+      }
+    }
   };
 
   render({}, { cards }) {

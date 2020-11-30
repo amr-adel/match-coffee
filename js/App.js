@@ -14,7 +14,7 @@ const initialState = {
 };
 
 class App extends Component {
-  state = initialState;
+  state = { ...initialState, game: 0 };
 
   removeBean = () => {
     this.setState({ beans: (this.state.beans -= 1) });
@@ -35,17 +35,18 @@ class App extends Component {
 
   init = () => {
     clearInterval(this.stopwatch);
-    this.setState(initialState);
+    this.setState({ ...initialState, game: (this.state.game += 1) });
   };
 
-  render({}, { time, beans, moves }) {
+  render({}, { time, beans, moves, game }) {
+    const { incrementMoves, init } = this;
     return h(
       "main",
       { class: "main" },
       Header,
-      h(Restart, { init: this.init }),
+      h(Restart, { init }),
       h(Rating, { beans }),
-      h(Board),
+      h(Board, { game, incrementMoves }),
       h(Stopwatch, { time }),
       h(Moves, { moves })
     );
