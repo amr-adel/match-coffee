@@ -54,8 +54,14 @@ class Board extends Component {
 
   // Check if the game was restarted
   componentDidUpdate(prevProps) {
-    if (this.props.game !== prevProps.game) {
+    const { game, moves, removeBean } = this.props;
+
+    if (game !== prevProps.game) {
       this.newBoard();
+    }
+
+    if (moves !== prevProps.moves && [12, 18, 25].indexOf(moves) !== -1) {
+      removeBean();
     }
   }
 
@@ -132,7 +138,7 @@ class Board extends Component {
         this.setState(newState);
 
         if (matches === 7) {
-          console.log("Success");
+          this.props.endGame("Success");
         }
       } else {
         // Delay hiding the unmatched cards

@@ -38,16 +38,28 @@ class App extends Component {
     this.setState({ ...initialState, game: (this.state.game += 1) });
   };
 
+  endGame = (result) => {
+    console.log("result:", result);
+    this.init();
+  };
+
   render({}, { time, moves, beans, game }) {
-    const { startStopwatch, incrementMoves, init } = this;
+    const { removeBean, startStopwatch, incrementMoves, init, endGame } = this;
     return h(
       "main",
       { class: "main" },
       Header,
       h(Restart, { init }),
-      h(Rating, { beans }),
-      h(Board, { game, startStopwatch, incrementMoves }),
-      h(Stopwatch, { time }),
+      h(Rating, { beans, endGame }),
+      h(Board, {
+        game,
+        moves,
+        removeBean,
+        startStopwatch,
+        incrementMoves,
+        endGame,
+      }),
+      h(Stopwatch, { time, removeBean, endGame }),
       h(Moves, { moves })
     );
   }
