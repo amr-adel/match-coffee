@@ -8,14 +8,18 @@ export { h, Component, render };
 
 // Preload card icons
 window.onload = () => {
-  const dummyImage = new Image();
+  const fragment = new DocumentFragment();
 
-  const load = (n) => {
-    dummyImage.onload = () => {
-      if (n < 8) load(n + 1);
-    };
-    dummyImage.src = `./images/cards/card-${n}.svg`;
+  const preloadCardIcon = (n) => {
+    if (n < 8) preloadCardIcon(n + 1);
+
+    const preloadLink = document.createElement("link");
+    preloadLink.href = `./images/cards/card-${n}.svg`;
+    preloadLink.rel = "preload";
+    preloadLink.as = "image";
+    fragment.appendChild(preloadLink);
   };
 
-  load(1);
+  preloadCardIcon(1);
+  document.head.appendChild(fragment);
 };
