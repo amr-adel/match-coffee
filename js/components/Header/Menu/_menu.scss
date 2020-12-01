@@ -23,6 +23,7 @@
       font-size: 1.8rem;
       padding: $xxs;
       color: $beige;
+      cursor: pointer;
 
       @include notLast {
         border-bottom: 1px solid $brown-3;

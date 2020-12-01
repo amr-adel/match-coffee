@@ -11,7 +11,7 @@ class Menu extends Component {
     this.setState({ showMenu: !this.state.showMenu });
   }
 
-  render(props, { showMenu }) {
+  render({ setModal }, { showMenu }) {
     return h(
       "div",
       { class: "nav" },
@@ -23,10 +23,34 @@ class Menu extends Component {
       showMenu &&
         h(
           "ul",
-          {},
-          h("li", null, "Signin / Sign up"),
-          h("li", null, "Leaderboard"),
-          h("li", null, "About")
+          { onClick: () => this.toggle() },
+          h(
+            "li",
+            {
+              onClick: () => {
+                setModal("Sign Me Up");
+              },
+            },
+            "Signin / Sign up"
+          ),
+          h(
+            "li",
+            {
+              onClick: () => {
+                setModal("Leaderboard");
+              },
+            },
+            "Leaderboard"
+          ),
+          h(
+            "li",
+            {
+              onClick: () => {
+                setModal("About Match Coffee!");
+              },
+            },
+            "About"
+          )
         )
     );
   }

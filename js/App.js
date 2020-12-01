@@ -6,11 +6,13 @@ import { Rating } from "./components/Rating/Rating.js";
 import { Restart } from "./components/Restart/Restart.js";
 import { Stopwatch } from "./components/Stopwatch/Stopwatch.js";
 import { Moves } from "./components/Moves/Moves.js";
+import { Modal } from "./components/Modal/Modal.js";
 
 const initialState = {
   time: 90,
   moves: 0,
   beans: 5,
+  modalBody: null,
 };
 
 class App extends Component {
@@ -43,12 +45,29 @@ class App extends Component {
     this.init();
   };
 
-  render({}, { time, moves, beans, game }) {
-    const { removeBean, startStopwatch, incrementMoves, init, endGame } = this;
+  hideModal = (e) => {
+    if (e.target.className === "modal") this.setState({ modalBody: null });
+  };
+
+  setModal = (content) => {
+    this.setState({ modalBody: content });
+  };
+
+  render({}, { time, moves, beans, game, modalBody }) {
+    const {
+      removeBean,
+      startStopwatch,
+      incrementMoves,
+      init,
+      endGame,
+      hideModal,
+      setModal,
+    } = this;
+
     return h(
       "main",
       { class: "main" },
-      Header,
+      h(Header, { setModal }),
       h(Restart, { init }),
       h(Rating, { beans, endGame }),
       h(Board, {
@@ -60,7 +79,8 @@ class App extends Component {
         endGame,
       }),
       h(Stopwatch, { time, removeBean, endGame }),
-      h(Moves, { moves })
+      h(Moves, { moves }),
+      modalBody && h(Modal, { content: modalBody, hideModal })
     );
   }
 }

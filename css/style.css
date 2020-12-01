@@ -137,6 +137,7 @@ html {
   font-size: 1.8rem;
   padding: var(--xxs);
   color: var(--beige);
+  cursor: pointer;
 }
 .nav ul li:not(:last-child) {
   border-bottom: 1px solid var(--brown-3);
@@ -284,6 +285,25 @@ html {
   line-height: var(--base);
   width: 4rem;
   margin-top: -5px;
+}
+
+.modal {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 100;
+  background-color: rgba(69, 49, 37, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal .modal-body {
+  background-color: var(--white);
+  padding: var(--base);
+  box-shadow: var(--shadow-lg);
+  border-radius: var(--roundness);
 }
 
 body {
