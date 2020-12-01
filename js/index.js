@@ -2,7 +2,7 @@ import { h, Component, render } from "https://unpkg.com/preact?module";
 
 import { App } from "./App.js";
 
-render(h(App), document.body);
+render(h(App), document.querySelector("#root"));
 
 export { h, Component, render };
 
@@ -10,16 +10,48 @@ export { h, Component, render };
 window.onload = () => {
   const fragment = new DocumentFragment();
 
-  const preloadCardIcon = (n) => {
-    if (n < 8) preloadCardIcon(n + 1);
+  const bgIds = [
+    "n78d2ps",
+    "n8sd1p0",
+    "n74dfp6",
+    "n75dnpc",
+    "n06d9pa",
+    "n5rdmp2",
+    "n18dypr",
+    "n6pdipz",
+  ];
 
-    const preloadLink = document.createElement("link");
-    preloadLink.href = `./images/cards/card-${n}.svg`;
-    preloadLink.rel = "preload";
-    preloadLink.as = "image";
-    fragment.appendChild(preloadLink);
-  };
+  const tempCards = document.createElement("div");
+  tempCards.id = "temp-cards";
 
-  preloadCardIcon(1);
-  document.head.appendChild(fragment);
+  for (let bgId of bgIds) {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.setAttribute("data-bgId", bgId);
+    fragment.appendChild(card);
+  }
+
+  tempCards.appendChild(fragment);
+  document.body.appendChild(tempCards);
+
+  setTimeout(() => {
+    document.querySelector("#temp-cards").remove();
+  }, 2000);
 };
+
+// window.onload = () => {
+//   const fragment = new DocumentFragment();
+
+//   const preloadCardIcon = (n) => {
+//     if (n < 8) preloadCardIcon(n + 1);
+
+//     const preloadLink = document.createElement("link");
+//     preloadLink.href = `./images/cards/card-${n}.svg`;
+//     preloadLink.rel = "preload";
+//     preloadLink.as = "image";
+//     fragment.appendChild(preloadLink);
+//   };
+
+//   preloadCardIcon(1);
+//   document.head.appendChild(fragment);
+// };

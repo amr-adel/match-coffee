@@ -19,14 +19,14 @@ body {
   font-weight: 400;
   color: $brown-4;
   background-color: $white;
-  position: absolute;
+}
+
+main {
+  position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
-}
-
-main {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, $xl) 1fr $xl;
@@ -35,5 +35,10 @@ main {
     "beans restart"
     "board board"
     "stopwatch moves";
-  height: 100%;
+}
+
+#temp-cards {
+  width: 0;
+  height: 0;
+  overflow: hidden;
 }
