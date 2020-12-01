@@ -114,10 +114,47 @@ html {
   font-weight: normal;
 }
 
+.nav {
+  position: relative;
+}
 .nav .toggle {
   width: var(--base);
   height: var(--base);
   cursor: pointer;
+}
+.nav ul {
+  position: absolute;
+  border-radius: var(--roundness);
+  box-shadow: var(--shadow-lg);
+  padding: var(--xs);
+  z-index: 99;
+  top: var(--l);
+  right: -0.5rem;
+  min-width: 15rem;
+  background-color: var(--brown-4);
+}
+.nav ul li {
+  font-size: 1.8rem;
+  padding: var(--xxs);
+  color: var(--beige);
+}
+.nav ul li:not(:last-child) {
+  border-bottom: 1px solid var(--brown-3);
+}
+.nav ul li:hover {
+  color: var(--white);
+  background-color: var(--brown-3);
+}
+.nav ul::before {
+  content: "";
+  position: absolute;
+  top: -1rem;
+  right: 0.75rem;
+  width: 0;
+  height: 0;
+  border-left: 1rem solid transparent;
+  border-right: 1rem solid transparent;
+  border-bottom: 1rem solid var(--brown-4);
 }
 
 .rating {
@@ -224,7 +261,7 @@ html {
 .stopwatch span {
   font-size: var(--base);
   line-height: var(--base);
-  width: 25%;
+  width: 4rem;
   margin-top: -5px;
 }
 
@@ -245,7 +282,7 @@ html {
 .moves span {
   font-size: var(--base);
   line-height: var(--base);
-  width: 25%;
+  width: 4rem;
   margin-top: -5px;
 }
 

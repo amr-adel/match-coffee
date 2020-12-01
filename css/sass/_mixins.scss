@@ -16,7 +16,18 @@
   span {
     font-size: $base;
     line-height: $base;
-    width: 25%;
+    width: 4rem;
     margin-top: -5px; // Sorry for using a magic number
+  }
+}
+
+@mixin square($size) {
+  width: $size;
+  height: $size;
+}
+
+@mixin notLast {
+  &:not(:last-child) {
+    @content;
   }
 }
