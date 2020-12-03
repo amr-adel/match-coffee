@@ -304,6 +304,44 @@ html {
   padding: var(--base);
   box-shadow: var(--shadow-lg);
   border-radius: var(--roundness);
+  max-height: calc(100% - min(20vh, 20vw));
+  max-width: calc(100% - min(20vh, 20vw));
+  overflow: auto;
+}
+
+.message {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.message .message-title,
+.message .rating,
+.message p {
+  width: 100%;
+}
+.message .message-title {
+  text-align: center;
+  font-weight: normal;
+  color: var(--brown-1);
+}
+.message .rating {
+  padding: var(--xxs);
+  margin: var(--xxs) auto;
+  justify-content: center;
+}
+.message p {
+  margin: var(--xxs) auto;
+  text-align: center;
+}
+.message .moves,
+.message .stopwatch {
+  width: 50%;
+  margin: var(--xxs) auto;
+  padding: var(--xxs);
+}
+.message .link {
+  color: var(--brown-1);
+  text-decoration: underline;
 }
 
 body {

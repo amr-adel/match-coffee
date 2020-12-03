@@ -16,5 +16,8 @@
     padding: $base;
     box-shadow: $shadow-lg;
     border-radius: $roundness;
+    max-height: calc(100% - min(20vh, 20vw));
+    max-width: calc(100% - min(20vh, 20vw));
+    overflow: auto;
   }
 }

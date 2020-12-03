@@ -1,0 +1,40 @@
+.message {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  .message-title,
+  .rating,
+  p {
+    width: 100%;
+  }
+
+  .message-title {
+    text-align: center;
+    font-weight: normal;
+    color: $brown-1;
+  }
+
+  .rating {
+    padding: $xxs;
+    margin: $xxs auto;
+    justify-content: center;
+  }
+
+  p {
+    margin: $xxs auto;
+    text-align: center;
+  }
+
+  .moves,
+  .stopwatch {
+    width: 50%;
+    margin: $xxs auto;
+    padding: $xxs;
+  }
+
+  .link {
+    color: $brown-1;
+    text-decoration: underline;
+  }
+}

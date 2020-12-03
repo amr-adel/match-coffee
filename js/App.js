@@ -7,12 +7,12 @@ import { Restart } from "./components/Restart/Restart.js";
 import { Stopwatch } from "./components/Stopwatch/Stopwatch.js";
 import { Moves } from "./components/Moves/Moves.js";
 import { Modal } from "./components/Modal/Modal.js";
+import { EndGame } from "./components/EndGame/EndGame.js";
 
 const initialState = {
   time: 90,
   moves: 0,
   beans: 5,
-  modalBody: null,
 };
 
 class App extends Component {
@@ -37,11 +37,15 @@ class App extends Component {
 
   init = () => {
     clearInterval(this.stopwatch);
-    this.setState({ ...initialState, game: (this.state.game += 1) });
+    this.setState({
+      ...initialState,
+      game: (this.state.game += 1),
+    });
   };
 
   endGame = (result) => {
-    console.log("result:", result);
+    const { moves, time, beans } = this.state;
+    this.setModal(h(EndGame, { result, moves, time, beans }));
     this.init();
   };
 
