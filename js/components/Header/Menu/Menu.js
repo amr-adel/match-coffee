@@ -7,8 +7,21 @@ class Menu extends Component {
     this.state = { showMenu: false };
   }
 
+  componentDidMount() {
+    window.addEventListener("mousedown", (e) => this.hideMenu(e));
+  }
+
+  componentWillUnmout() {
+    window.removeEventListener("mousedown", (e) => this.hideMenu(e));
+  }
+
   toggle() {
     this.setState({ showMenu: !this.state.showMenu });
+  }
+
+  hideMenu(e) {
+    // Hide menu on clicking anywhere outside '.nav' div
+    if (this.state.showMenu && !e.target.closest(".nav")) this.toggle();
   }
 
   render({ setModal }, { showMenu }) {
@@ -23,7 +36,11 @@ class Menu extends Component {
       showMenu &&
         h(
           "ul",
-          { onClick: () => this.toggle() },
+          {
+            onClick: (e) => {
+              if (e.target.tagName === "LI") this.toggle();
+            },
+          },
           h(
             "li",
             {
