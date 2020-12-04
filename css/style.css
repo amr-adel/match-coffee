@@ -163,6 +163,17 @@ html {
   border-right: 1rem solid transparent;
   border-bottom: 1rem solid var(--brown-4);
 }
+.nav ul .user {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav ul .user svg {
+  color: var(--brown-1);
+  width: var(--s);
+  height: var(--s);
+  text-align: right;
+}
 
 .rating {
   grid-area: beans;

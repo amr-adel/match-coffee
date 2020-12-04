@@ -1,6 +1,8 @@
 import { Component, h } from "../../../index.js";
 import { Icon } from "../../Icon.js";
 import { Login } from "../../Login/Login.js";
+import { currUser } from "../../firebase.js";
+import { UserProfile } from "../../UserProfile/UserProfile.js";
 
 class Menu extends Component {
   constructor(props) {
@@ -16,13 +18,14 @@ class Menu extends Component {
     window.removeEventListener("mousedown", (e) => this.hideMenu(e));
   }
 
-  toggle() {
+  toggleMenuVisibility() {
     this.setState({ showMenu: !this.state.showMenu });
   }
 
   hideMenu(e) {
     // Hide menu on clicking anywhere outside '.nav' div
-    if (this.state.showMenu && !e.target.closest(".nav")) this.toggle();
+    if (this.state.showMenu && !e.target.closest(".nav"))
+      this.toggleMenuVisibility();
   }
 
   render({ setModal }, { showMenu }) {
@@ -31,7 +34,7 @@ class Menu extends Component {
       { class: "nav" },
       h(
         "button",
-        { class: "toggle", onClick: () => this.toggle() },
+        { class: "toggle", onClick: () => this.toggleMenuVisibility() },
         h(Icon, { name: showMenu ? "close" : "menu" })
       ),
       showMenu &&
@@ -39,18 +42,31 @@ class Menu extends Component {
           "ul",
           {
             onClick: (e) => {
-              if (e.target.tagName === "LI") this.toggle();
+              if (e.target.tagName === "LI") this.toggleMenuVisibility();
             },
           },
-          h(
-            "li",
-            {
-              onClick: () => {
-                setModal(h(Login));
+          !currUser &&
+            h(
+              "li",
+              {
+                onClick: () => {
+                  setModal(h(Login, { setModal }));
+                },
               },
-            },
-            "Login / Sign up"
-          ),
+              "Login / Sign up"
+            ),
+          currUser &&
+            h(
+              "li",
+              {
+                class: "user",
+                onClick: () => {
+                  setModal(h(UserProfile, { setModal }));
+                },
+              },
+              currUser.displayName,
+              h(Icon, { name: "user" })
+            ),
           h(
             "li",
             {

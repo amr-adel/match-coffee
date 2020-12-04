@@ -1,4 +1,5 @@
 import { Component, h } from "../../index.js";
+import { createUser, loginUser } from "./../firebase.js";
 
 class Login extends Component {
   state = {
@@ -9,12 +10,39 @@ class Login extends Component {
     errorMsg: "",
   };
 
-  formSubmit = (e) => {
+  formSubmit = async (e) => {
     e.preventDefault();
-    console.log(this.state.name, this.state.email, this.state.password);
+    const { form, name, email, password } = this.state;
+    if (!email || !password || (form === "signUp" && !name)) {
+      this.setState({ errorMsg: "*All fields are required." });
+    } else {
+      this.setState({ errorMsg: "" });
+
+      let res;
+
+      if (form === "signUp") {
+        res = await createUser(name, email, password);
+      } else if (form === "login") {
+        res = await loginUser(email, password);
+      }
+
+      res.user
+        ? this.props.setModal(
+            h(
+              "p",
+              { class: "welcome" },
+              `Welcome${form === "login" ? " back" : ""}, ${
+                res.user.displayName || name
+              }.`
+            ),
+            true
+          )
+        : this.setState({ errorMsg: res });
+    }
   };
 
   handleInput = (e) => {
+    if (this.state.errorMsg) this.setState({ errorMsg: "" });
     this.setState({ [e.target.id]: e.target.value });
   };
 

@@ -53,7 +53,8 @@ class App extends Component {
     if (e.target.className === "modal") this.setState({ modalBody: null });
   };
 
-  setModal = (content) => {
+  setModal = (content, selfClose) => {
+    if (selfClose) setTimeout(() => this.setState({ modalBody: null }), 2000);
     this.setState({ modalBody: content });
   };
 

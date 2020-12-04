@@ -38,20 +38,3 @@ window.onload = () => {
     document.querySelector("#temp-cards").remove();
   }, 2000);
 };
-
-// window.onload = () => {
-//   const fragment = new DocumentFragment();
-
-//   const preloadCardIcon = (n) => {
-//     if (n < 8) preloadCardIcon(n + 1);
-
-//     const preloadLink = document.createElement("link");
-//     preloadLink.href = `./images/cards/card-${n}.svg`;
-//     preloadLink.rel = "preload";
-//     preloadLink.as = "image";
-//     fragment.appendChild(preloadLink);
-//   };
-
-//   preloadCardIcon(1);
-//   document.head.appendChild(fragment);
-// };

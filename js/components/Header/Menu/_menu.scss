@@ -47,5 +47,18 @@
 
       border-bottom: 1rem solid $brown-4;
     }
+
+    .user {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      svg {
+        color: $brown-1;
+        width: $s;
+        height: $s;
+        text-align: right;
+      }
+    }
   }
 }
