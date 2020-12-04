@@ -13,11 +13,24 @@
 
   .modal-body {
     background-color: $white;
-    padding: $base;
+    padding: $s;
     box-shadow: $shadow-lg;
     border-radius: $roundness;
+    min-width: 25rem;
     max-height: calc(100% - min(20vh, 20vw));
     max-width: min(calc(100% - min(20vh, 20vw)), 40rem);
     overflow: auto;
+  }
+
+  .title {
+    color: $orange-d;
+    font-weight: normal;
+    border-bottom: 1px solid $gray;
+    margin: 0 0 $xxs;
+    width: 100%;
+  }
+
+  p {
+    margin: $xxs 0;
   }
 }

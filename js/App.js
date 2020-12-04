@@ -45,7 +45,9 @@ class App extends Component {
 
   endGame = (result) => {
     const { moves, time, beans } = this.state;
-    this.setModal(h(EndGame, { result, moves, time, beans }));
+    this.setModal(
+      h(EndGame, { result, moves, time, beans, setModal: this.setModal })
+    );
     this.init();
   };
 

@@ -18,13 +18,18 @@ firebase.auth().onAuthStateChanged((user) => {
 });
 
 // Create new user
-const createUser = (name, email, password) =>
+const createUser = (name, email, password, beans) =>
   firebase
     .auth()
     .createUserWithEmailAndPassword(email, password)
-    .then((user) => {
+    .then((res) => {
       firebase.auth().currentUser.updateProfile({ displayName: name });
-      return user;
+      firebase
+        .firestore()
+        .collection("scores")
+        .doc(res.user.uid)
+        .set({ displayName: name, beans: beans || 0 });
+      return res;
     })
     .catch((error) => {
       var errorMessage = error.message;
@@ -32,14 +37,38 @@ const createUser = (name, email, password) =>
     });
 
 // Login user
-const loginUser = (email, password) =>
+const loginUser = (email, password, beans) =>
   firebase
     .auth()
     .signInWithEmailAndPassword(email, password)
-    .then((user) => user)
+    .then((user) => {
+      if (beans) {
+        firebase
+          .firestore()
+          .collection("scores")
+          .doc(user.user.uid)
+          .update({
+            beans: firebase.firestore.FieldValue.increment(beans),
+          });
+      }
+      return user;
+    })
     .catch((error) => {
       var errorMessage = error.message;
       return errorMessage;
     });
 
-export { createUser, loginUser, currUser };
+// Get beans for certain user
+const getBeans = (id) =>
+  firebase
+    .firestore()
+    .collection("scores")
+    .doc(id)
+    .get()
+    .then((doc) => doc.data().beans)
+    .catch((error) => {
+      var errorMessage = error.message;
+      return errorMessage;
+    });
+
+export { createUser, loginUser, getBeans, currUser };

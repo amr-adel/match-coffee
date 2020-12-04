@@ -2,9 +2,21 @@ import { h } from "../../index.js";
 import { Moves } from "../Moves/Moves.js";
 import { Rating } from "../Rating/Rating.js";
 import { Stopwatch } from "../Stopwatch/Stopwatch.js";
+import { currUser } from "../firebase.js";
+import { Login } from "../Login/Login.js";
 
-const EndGame = ({ result, moves, time, beans }) => {
+const EndGame = ({ result, moves, time, beans, setModal }) => {
   const won = result === "Success";
+
+  if (won && currUser) {
+    firebase
+      .firestore()
+      .collection("scores")
+      .doc(currUser.uid)
+      .update({
+        beans: firebase.firestore.FieldValue.increment(beans),
+      });
+  }
 
   const message = h(
     "div",
@@ -19,10 +31,18 @@ const EndGame = ({ result, moves, time, beans }) => {
     h(Stopwatch, { time: 90 - time }),
     h(Moves, { moves }),
     won &&
+      !currUser &&
       h(
         "p",
         { class: "login" },
-        h("span", { class: "link" }, "Login "),
+        h(
+          "span",
+          {
+            class: "link",
+            onClick: () => setModal(h(Login, { beans, setModal })),
+          },
+          "Login "
+        ),
         "to save your score"
       )
   );

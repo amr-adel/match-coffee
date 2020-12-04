@@ -1,0 +1,9 @@
+.user-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+
+  .link {
+    align-self: flex-end;
+  }
+}

@@ -323,12 +323,23 @@ html {
 }
 .modal .modal-body {
   background-color: var(--white);
-  padding: var(--base);
+  padding: var(--s);
   box-shadow: var(--shadow-lg);
   border-radius: var(--roundness);
+  min-width: 25rem;
   max-height: calc(100% - min(20vh, 20vw));
   max-width: min(calc(100% - min(20vh, 20vw)), 40rem);
   overflow: auto;
+}
+.modal .title {
+  color: var(--orange-d);
+  font-weight: normal;
+  border-bottom: 1px solid var(--gray);
+  margin: 0 0 var(--xxs);
+  width: 100%;
+}
+.modal p {
+  margin: var(--xxs) 0;
 }
 
 .message {
@@ -345,7 +356,7 @@ html {
 .message .message-title {
   text-align: center;
   font-weight: normal;
-  color: var(--brown-1);
+  color: var(--orange-d);
   margin-bottom: var(--xxs);
 }
 .message .rating {
@@ -414,6 +425,15 @@ html {
 .login-screen .submit:hover {
   color: var(--orange);
   background-color: var(--brown-3);
+}
+
+.user-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+.user-profile .link {
+  align-self: flex-end;
 }
 
 body {

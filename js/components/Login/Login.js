@@ -21,9 +21,9 @@ class Login extends Component {
       let res;
 
       if (form === "signUp") {
-        res = await createUser(name, email, password);
+        res = await createUser(name, email, password, this.props.beans);
       } else if (form === "login") {
-        res = await loginUser(email, password);
+        res = await loginUser(email, password, this.props.beans);
       }
 
       res.user
