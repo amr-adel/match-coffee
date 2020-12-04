@@ -76,6 +76,12 @@ button {
   color: inherit;
 }
 
+.link {
+  color: var(--orange-d);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 .noselect {
   -webkit-touch-callout: none;
   /* iOS Safari */
@@ -143,7 +149,7 @@ html {
   border-bottom: 1px solid var(--brown-3);
 }
 .nav ul li:hover {
-  color: var(--white);
+  color: var(--orange);
   background-color: var(--brown-3);
 }
 .nav ul::before {
@@ -168,6 +174,8 @@ html {
 .rating img {
   height: var(--base);
   width: var(--base);
+}
+.rating img:not(:last-child) {
   margin-right: var(--xxs);
 }
 
@@ -184,6 +192,9 @@ html {
   height: var(--base);
   width: var(--base);
   cursor: pointer;
+}
+.restart button:hover {
+  color: var(--orange-d);
 }
 
 .board {
@@ -305,7 +316,7 @@ html {
   box-shadow: var(--shadow-lg);
   border-radius: var(--roundness);
   max-height: calc(100% - min(20vh, 20vw));
-  max-width: calc(100% - min(20vh, 20vw));
+  max-width: min(calc(100% - min(20vh, 20vw)), 40rem);
   overflow: auto;
 }
 
@@ -313,6 +324,7 @@ html {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  max-width: 25rem;
 }
 .message .message-title,
 .message .rating,
@@ -323,9 +335,10 @@ html {
   text-align: center;
   font-weight: normal;
   color: var(--brown-1);
+  margin-bottom: var(--xxs);
 }
 .message .rating {
-  padding: var(--xxs);
+  padding-bottom: var(--s);
   margin: var(--xxs) auto;
   justify-content: center;
 }
@@ -339,9 +352,57 @@ html {
   margin: var(--xxs) auto;
   padding: var(--xxs);
 }
-.message .link {
+
+.login-screen {
+  width: 25rem;
+}
+.login-screen .login,
+.login-screen .sign-up {
+  color: var(--brown-2);
+  display: inline-block;
+  width: 50%;
+  text-align: center;
+  font-size: var(--base);
+  line-height: var(--xl);
+  background-color: var(--beige);
+  border: 1px solid var(--beige-d);
+  margin-bottom: var(--xxs);
+  cursor: pointer;
+}
+.login-screen .active {
+  color: var(--orange-d);
+  background-color: transparent;
+  border-bottom: none;
+  cursor: default;
+}
+.login-screen input {
+  width: 100%;
+  height: var(--l);
+  border: 1px solid var(--beige);
+  border-radius: var(--roundness);
+  outline: none;
+  margin: var(--xs) auto;
+  display: block;
+  font-size: inherit;
+  font-family: inherit;
+  padding: var(--base) var(--s);
+  color: var(--brown-2);
+}
+.login-screen input:focus {
+  border: 1px solid var(--orange-d);
+}
+.login-screen .submit {
   color: var(--brown-1);
-  text-decoration: underline;
+  background-color: var(--brown-4);
+  font-size: var(--base);
+  padding: 0;
+  height: var(--xl);
+  cursor: pointer;
+  margin-bottom: 0;
+}
+.login-screen .submit:hover {
+  color: var(--orange);
+  background-color: var(--brown-3);
 }
 
 body {

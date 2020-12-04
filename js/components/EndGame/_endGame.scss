@@ -2,6 +2,7 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  max-width: 25rem;
 
   .message-title,
   .rating,
@@ -13,10 +14,11 @@
     text-align: center;
     font-weight: normal;
     color: $brown-1;
+    margin-bottom: $xxs;
   }
 
   .rating {
-    padding: $xxs;
+    padding-bottom: $s;
     margin: $xxs auto;
     justify-content: center;
   }
@@ -31,10 +33,5 @@
     width: 50%;
     margin: $xxs auto;
     padding: $xxs;
-  }
-
-  .link {
-    color: $brown-1;
-    text-decoration: underline;
   }
 }

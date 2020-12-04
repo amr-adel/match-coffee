@@ -9,6 +9,9 @@
   img {
     height: $base;
     width: $base;
-    margin-right: $xxs;
+
+    @include notLast {
+      margin-right: $xxs;
+    }
   }
 }

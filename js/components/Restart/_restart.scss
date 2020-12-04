@@ -12,5 +12,9 @@
     height: $base;
     width: $base;
     cursor: pointer;
+
+    &:hover {
+      color: $orange-d;
+    }
   }
 }

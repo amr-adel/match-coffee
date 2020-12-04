@@ -1,0 +1,57 @@
+.login-screen {
+  width: 25rem;
+
+  .login,
+  .sign-up {
+    color: $brown-2;
+    display: inline-block;
+    width: 50%;
+    text-align: center;
+    font-size: $base;
+    line-height: $xl;
+    background-color: $beige;
+    border: 1px solid $beige-d;
+    margin-bottom: $xxs;
+    cursor: pointer;
+  }
+
+  .active {
+    color: $orange-d;
+    background-color: transparent;
+    border-bottom: none;
+    cursor: default;
+  }
+
+  input {
+    width: 100%;
+    height: $l;
+    border: 1px solid $beige;
+    border-radius: $roundness;
+    outline: none;
+    margin: $xs auto;
+    display: block;
+    font-size: inherit;
+    font-family: inherit;
+    padding: $base $s;
+    color: $brown-2;
+
+    &:focus {
+      border: 1px solid $orange-d;
+    }
+  }
+
+  .submit {
+    color: $brown-1;
+    background-color: $brown-4;
+    font-size: $base;
+    padding: 0;
+    height: $xl;
+    cursor: pointer;
+    margin-bottom: 0;
+
+    &:hover {
+      color: $orange;
+      background-color: $brown-3;
+    }
+  }
+}

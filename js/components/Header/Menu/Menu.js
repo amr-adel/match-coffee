@@ -1,5 +1,6 @@
 import { Component, h } from "../../../index.js";
 import { Icon } from "../../Icon.js";
+import { Login } from "../../Login/Login.js";
 
 class Menu extends Component {
   constructor(props) {
@@ -45,10 +46,10 @@ class Menu extends Component {
             "li",
             {
               onClick: () => {
-                setModal("Sign Me Up");
+                setModal(h(Login));
               },
             },
-            "Signin / Sign up"
+            "Login / Sign up"
           ),
           h(
             "li",
