@@ -81,6 +81,9 @@ button {
   text-decoration: underline;
   cursor: pointer;
 }
+.link:hover {
+  color: var(--brown-1);
+}
 
 .noselect {
   -webkit-touch-callout: none;
@@ -332,6 +335,7 @@ html {
   overflow: auto;
 }
 .modal .title {
+  font-size: var(--l);
   color: var(--orange-d);
   font-weight: normal;
   border-bottom: 1px solid var(--gray);
@@ -434,6 +438,22 @@ html {
 }
 .user-profile .link {
   align-self: flex-end;
+}
+
+.leaderboard .leaderboard-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--xxs) 0;
+  color: var(--brown-1);
+}
+.leaderboard .leaderboard-list li:not(:last-child) {
+  border-bottom: 1px solid var(--beige);
+}
+.leaderboard .user-beans {
+  color: var(--brown-3);
+  padding-right: var(--l);
+  background: url(../images/coffee-bean.svg) no-repeat center right;
+  background-size: contain;
 }
 
 body {

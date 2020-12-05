@@ -91,6 +91,10 @@ button {
   color: var(--orange-d);
   text-decoration: underline;
   cursor: pointer;
+
+  &:hover {
+    color: var(--brown-1);
+  }
 }
 
 .noselect {

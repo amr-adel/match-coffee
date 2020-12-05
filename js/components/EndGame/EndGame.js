@@ -2,16 +2,14 @@ import { h } from "../../index.js";
 import { Moves } from "../Moves/Moves.js";
 import { Rating } from "../Rating/Rating.js";
 import { Stopwatch } from "../Stopwatch/Stopwatch.js";
-import { currUser } from "../firebase.js";
+import { db, currUser } from "../firebase.js";
 import { Login } from "../Login/Login.js";
 
 const EndGame = ({ result, moves, time, beans, setModal }) => {
   const won = result === "Success";
 
   if (won && currUser) {
-    firebase
-      .firestore()
-      .collection("scores")
+    db.collection("scores")
       .doc(currUser.uid)
       .update({
         beans: firebase.firestore.FieldValue.increment(beans),

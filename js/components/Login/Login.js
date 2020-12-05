@@ -86,6 +86,7 @@ class Login extends Component {
                 type: "text",
                 value: name,
                 placeholder: "Name",
+                autocomplete: "username",
                 onInput: (e) => this.handleInput(e),
                 required: true,
               })
@@ -98,6 +99,7 @@ class Login extends Component {
               type: "email",
               value: email,
               placeholder: "E-mail",
+              autocomplete: "email",
               onInput: (e) => this.handleInput(e),
             })
           ),
@@ -109,6 +111,8 @@ class Login extends Component {
               type: "password",
               value: password,
               placeholder: "Password",
+              autocomplete:
+                form === "login" ? "current-password" : "new-password",
               onInput: (e) => this.handleInput(e),
             })
           ),

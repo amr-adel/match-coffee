@@ -1,5 +1,5 @@
 import { Component, h } from "../../index.js";
-import { currUser, getBeans } from "../firebase.js";
+import { auth, currUser, getBeans } from "../firebase.js";
 import { Icon } from "../Icon.js";
 
 class UserProfile extends Component {
@@ -22,7 +22,7 @@ class UserProfile extends Component {
           class: "link",
           href: "/",
           onClick: () => {
-            firebase.auth().signOut();
+            auth.signOut();
             setTimeout(() => setModal(), 500);
           },
         },

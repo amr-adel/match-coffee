@@ -3,6 +3,7 @@ import { Icon } from "../../Icon.js";
 import { Login } from "../../Login/Login.js";
 import { currUser } from "../../firebase.js";
 import { UserProfile } from "../../UserProfile/UserProfile.js";
+import { Leaderboard } from "../../Leaderboard/Leaderboard.js";
 
 class Menu extends Component {
   constructor(props) {
@@ -71,7 +72,7 @@ class Menu extends Component {
             "li",
             {
               onClick: () => {
-                setModal("Leaderboard");
+                setModal(h(Leaderboard));
               },
             },
             "Leaderboard"

@@ -7,9 +7,13 @@ var firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+
+let auth = firebase.auth();
+let db = firebase.firestore();
+
 let currUser;
 
-firebase.auth().onAuthStateChanged((user) => {
+auth.onAuthStateChanged((user) => {
   if (user) {
     currUser = user;
   } else {
@@ -19,14 +23,11 @@ firebase.auth().onAuthStateChanged((user) => {
 
 // Create new user
 const createUser = (name, email, password, beans) =>
-  firebase
-    .auth()
+  auth
     .createUserWithEmailAndPassword(email, password)
     .then((res) => {
-      firebase.auth().currentUser.updateProfile({ displayName: name });
-      firebase
-        .firestore()
-        .collection("scores")
+      auth.currentUser.updateProfile({ displayName: name });
+      db.collection("scores")
         .doc(res.user.uid)
         .set({ displayName: name, beans: beans || 0 });
       return res;
@@ -38,14 +39,11 @@ const createUser = (name, email, password, beans) =>
 
 // Login user
 const loginUser = (email, password, beans) =>
-  firebase
-    .auth()
+  auth
     .signInWithEmailAndPassword(email, password)
     .then((user) => {
       if (beans) {
-        firebase
-          .firestore()
-          .collection("scores")
+        db.collection("scores")
           .doc(user.user.uid)
           .update({
             beans: firebase.firestore.FieldValue.increment(beans),
@@ -60,8 +58,7 @@ const loginUser = (email, password, beans) =>
 
 // Get beans for certain user
 const getBeans = (id) =>
-  firebase
-    .firestore()
+  db
     .collection("scores")
     .doc(id)
     .get()
@@ -71,4 +68,26 @@ const getBeans = (id) =>
       return errorMessage;
     });
 
-export { createUser, loginUser, getBeans, currUser };
+// Get 20 users with the highest score
+const getLeaderboard = () =>
+  db
+    .collection("scores")
+    .orderBy("beans", "desc")
+    .limit(20)
+    .get()
+    .then((querySnapshot) => {
+      const leaderboardArray = [];
+      querySnapshot.forEach((doc) => {
+        leaderboardArray.push({
+          name: doc.data().displayName,
+          beans: doc.data().beans,
+        });
+      });
+      return leaderboardArray;
+    })
+    .catch((error) => {
+      var errorMessage = error.message;
+      return errorMessage;
+    });
+
+export { db, auth, createUser, loginUser, getBeans, getLeaderboard, currUser };
