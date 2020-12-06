@@ -1,16 +1,28 @@
 .leaderboard {
-  .leaderboard-list li {
-    display: flex;
-    justify-content: space-between;
-    padding: $xxs 0;
-    color: $brown-1;
+  .leaderboard-list {
+    counter-reset: orderedList 0;
+    font-size: 1.8rem;
 
-    @include notLast {
-      border-bottom: 1px solid $beige;
+    li {
+      display: flex;
+      padding: $xxs 0;
+      color: $brown-1;
+
+      &::before {
+        content: counter(orderedList);
+        counter-increment: orderedList 1;
+        color: $orange-d;
+        margin-right: $xxs;
+      }
+
+      @include notLast {
+        border-bottom: 1px solid $beige;
+      }
     }
   }
 
   .user-beans {
+    margin-left: auto;
     color: $brown-3;
     padding-right: $l;
     background: url(../images/coffee-bean.svg) no-repeat center right;

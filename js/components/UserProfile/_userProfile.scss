@@ -3,7 +3,46 @@
   flex-direction: column;
   align-items: start;
 
-  .link {
-    align-self: flex-end;
+  .email {
+    margin: 0 auto;
+    color: $beige-d;
+    font-size: $s;
+    font-weight: normal;
+  }
+
+  .beans {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    p {
+      font-size: $l;
+      color: $brown-2;
+    }
+
+    img {
+      margin-left: $xxs;
+      height: $l;
+      width: auto;
+    }
+  }
+
+  .delete-form {
+    width: 100%;
+    padding: $xxs 0;
+    margin: $xxs 0;
+    border-top: 1px solid $gray;
+
+    input[type="checkbox"] {
+      margin-right: $xxs;
+    }
+
+    .btn-delete {
+      color: $brown-1;
+      background-color: transparent;
+      border: 2px solid $brown-1;
+    }
   }
 }

@@ -20,6 +20,7 @@ class Leaderboard extends Component {
           )
         )
     );
+
     return h(
       "div",
       { class: "leaderboard" },

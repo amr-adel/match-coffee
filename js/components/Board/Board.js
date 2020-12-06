@@ -60,7 +60,7 @@ class Board extends Component {
       this.newBoard();
     }
 
-    if (moves !== prevProps.moves && [12, 18, 25].indexOf(moves) !== -1) {
+    if (moves !== prevProps.moves && [12, 20].indexOf(moves) !== -1) {
       removeBean();
     }
   }

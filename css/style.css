@@ -401,55 +401,68 @@ html {
   border-bottom: none;
   cursor: default;
 }
-.login-screen input {
-  width: 100%;
-  height: var(--l);
-  border: 1px solid var(--beige);
-  border-radius: var(--roundness);
-  outline: none;
-  margin: var(--xs) auto;
-  display: block;
-  font-size: inherit;
-  font-family: inherit;
-  padding: var(--base) var(--s);
-  color: var(--brown-2);
-}
-.login-screen input:focus {
-  border: 1px solid var(--orange-d);
-}
-.login-screen .submit {
-  color: var(--brown-1);
-  background-color: var(--brown-4);
-  font-size: var(--base);
-  padding: 0;
-  height: var(--xl);
-  cursor: pointer;
-  margin-bottom: 0;
-}
-.login-screen .submit:hover {
-  color: var(--orange);
-  background-color: var(--brown-3);
-}
 
 .user-profile {
   display: flex;
   flex-direction: column;
   align-items: start;
 }
-.user-profile .link {
-  align-self: flex-end;
+.user-profile .email {
+  margin: 0 auto;
+  color: var(--beige-d);
+  font-size: var(--s);
+  font-weight: normal;
+}
+.user-profile .beans {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.user-profile .beans p {
+  font-size: var(--l);
+  color: var(--brown-2);
+}
+.user-profile .beans img {
+  margin-left: var(--xxs);
+  height: var(--l);
+  width: auto;
+}
+.user-profile .delete-form {
+  width: 100%;
+  padding: var(--xxs) 0;
+  margin: var(--xxs) 0;
+  border-top: 1px solid var(--gray);
+}
+.user-profile .delete-form input[type=checkbox] {
+  margin-right: var(--xxs);
+}
+.user-profile .delete-form .btn-delete {
+  color: var(--brown-1);
+  background-color: transparent;
+  border: 2px solid var(--brown-1);
 }
 
+.leaderboard .leaderboard-list {
+  counter-reset: orderedList 0;
+  font-size: 1.8rem;
+}
 .leaderboard .leaderboard-list li {
   display: flex;
-  justify-content: space-between;
   padding: var(--xxs) 0;
   color: var(--brown-1);
+}
+.leaderboard .leaderboard-list li::before {
+  content: counter(orderedList);
+  counter-increment: orderedList 1;
+  color: var(--orange-d);
+  margin-right: var(--xxs);
 }
 .leaderboard .leaderboard-list li:not(:last-child) {
   border-bottom: 1px solid var(--beige);
 }
 .leaderboard .user-beans {
+  margin-left: auto;
   color: var(--brown-3);
   padding-right: var(--l);
   background: url(../images/coffee-bean.svg) no-repeat center right;
@@ -474,6 +487,46 @@ main {
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, var(--xl)) 1fr var(--xl);
   grid-template-areas: "header header" "beans restart" "board board" "stopwatch moves";
+}
+
+.input, input[type=submit],
+.btn, input:not([type=checkbox]) {
+  width: 100%;
+  height: var(--l);
+  border: 1px solid var(--beige);
+  border-radius: var(--roundness);
+  outline: none;
+  margin: var(--xs) auto;
+  display: block;
+  font-size: inherit;
+  font-family: inherit;
+  padding: var(--base) var(--s);
+  color: var(--brown-2);
+}
+.input:focus, input[type=submit]:focus,
+.btn:focus, input:focus:not([type=checkbox]) {
+  border: 1px solid var(--orange-d);
+}
+
+input[type=submit],
+.btn {
+  color: var(--beige);
+  background-color: var(--brown-4);
+  font-size: var(--base);
+  padding: 0;
+  height: var(--xl);
+  cursor: pointer;
+  margin-bottom: 0;
+}
+input[type=submit]:hover:not(:disabled),
+.btn:hover:not(:disabled) {
+  color: var(--orange);
+  border: 2px solid var(--orange);
+  background-color: var(--brown-3);
+}
+input[type=submit]:disabled,
+.btn:disabled {
+  cursor: default;
 }
 
 #temp-cards {

@@ -32,10 +32,7 @@ const createUser = (name, email, password, beans) =>
         .set({ displayName: name, beans: beans || 0 });
       return res;
     })
-    .catch((error) => {
-      var errorMessage = error.message;
-      return errorMessage;
-    });
+    .catch((error) => error.message);
 
 // Login user
 const loginUser = (email, password, beans) =>
@@ -51,10 +48,7 @@ const loginUser = (email, password, beans) =>
       }
       return user;
     })
-    .catch((error) => {
-      var errorMessage = error.message;
-      return errorMessage;
-    });
+    .catch((error) => error.message);
 
 // Get beans for certain user
 const getBeans = (id) =>
@@ -64,8 +58,8 @@ const getBeans = (id) =>
     .get()
     .then((doc) => doc.data().beans)
     .catch((error) => {
-      var errorMessage = error.message;
-      return errorMessage;
+      console.log(error.message);
+      return "!!!";
     });
 
 // Get 20 users with the highest score
@@ -85,9 +79,57 @@ const getLeaderboard = () =>
       });
       return leaderboardArray;
     })
-    .catch((error) => {
-      var errorMessage = error.message;
-      return errorMessage;
-    });
+    .catch((error) => error.message);
 
-export { db, auth, createUser, loginUser, getBeans, getLeaderboard, currUser };
+// Delete user score and acount
+const deleteUser = (password) => {
+  return reauthenticate(password)
+    .then((error) => {
+      if (error) throw error;
+      deleteDoc(auth.currentUser.uid);
+    })
+    .then((error) => {
+      if (error) throw error;
+      auth.currentUser.delete();
+    })
+    .then(() => "Account deleted, You will be missed.")
+    .catch((error) => error.message);
+};
+
+// Delete doc by docId
+const deleteDoc = (docId) => {
+  return (
+    db
+      .collection("scores")
+      .doc(docId)
+      .delete()
+      // .then(() => console.log("User doc deleted"))
+      .catch((error) => error)
+  );
+};
+
+// Reauthenticate with password
+const reauthenticate = (password) => {
+  let credentials = firebase.auth.EmailAuthProvider.credential(
+    currUser.email,
+    password
+  );
+
+  return (
+    auth.currentUser
+      .reauthenticateWithCredential(credentials)
+      // .then(() => console.log("Reauthenticated"))
+      .catch((error) => error)
+  );
+};
+
+export {
+  db,
+  auth,
+  createUser,
+  loginUser,
+  getBeans,
+  getLeaderboard,
+  deleteUser,
+  currUser,
+};
