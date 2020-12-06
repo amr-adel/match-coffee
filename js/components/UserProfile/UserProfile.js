@@ -25,7 +25,7 @@ class UserProfile extends Component {
       h(
         "div",
         { class: "beans" },
-        h("p", null, beans || "---"),
+        h("p", null, beans && Number.isInteger(beans) ? beans : "---"),
         h("img", { src: "./images/coffee-bean.svg" })
       ),
       h("p", { class: "email" }, `(${currUser.email})`),
@@ -72,11 +72,10 @@ class UserProfile extends Component {
             class: "btn btn-delete",
             type: "submit",
             disabled: sure && password ? false : true,
-            onClick: (e) => {
+            onClick: async (e) => {
               e.preventDefault();
-              deleteUser(password)
-                .then((msg = "unknown") => setModal(msg))
-                .catch((err) => console.log("err", err));
+              let deleteUserResult = await deleteUser(password);
+              setModal(deleteUserResult, true);
             },
           },
           "Delete"

@@ -21,6 +21,13 @@ auth.onAuthStateChanged((user) => {
   }
 });
 
+// Handle Firebase errors
+const handleError = (origin, error) => {
+  // console.info(`From ${origin}:`);
+  // console.error(error);
+  return { errorMsg: error.message || `${origin} error!` };
+};
+
 // Create new user
 const createUser = (name, email, password, beans) =>
   auth
@@ -32,7 +39,7 @@ const createUser = (name, email, password, beans) =>
         .set({ displayName: name, beans: beans || 0 });
       return res;
     })
-    .catch((error) => error.message);
+    .catch((error) => handleError("createUser", error).errorMsg);
 
 // Login user
 const loginUser = (email, password, beans) =>
@@ -48,7 +55,7 @@ const loginUser = (email, password, beans) =>
       }
       return user;
     })
-    .catch((error) => error.message);
+    .catch((error) => handleError("loginUser", error).errorMsg);
 
 // Get beans for certain user
 const getBeans = (id) =>
@@ -57,10 +64,7 @@ const getBeans = (id) =>
     .doc(id)
     .get()
     .then((doc) => doc.data().beans)
-    .catch((error) => {
-      console.log(error.message);
-      return "!!!";
-    });
+    .catch((error) => handleError("getBeans", error).errorMsg);
 
 // Get 20 users with the highest score
 const getLeaderboard = () =>
@@ -79,49 +83,47 @@ const getLeaderboard = () =>
       });
       return leaderboardArray;
     })
-    .catch((error) => error.message);
+    .catch((error) => handleError("getLeaderboard", error).errorMsg);
 
-// Delete user score and acount
-const deleteUser = (password) => {
-  return reauthenticate(password)
-    .then((error) => {
-      if (error) throw error;
-      deleteDoc(auth.currentUser.uid);
-    })
-    .then((error) => {
-      if (error) throw error;
-      auth.currentUser.delete();
-    })
-    .then(() => "Account deleted, You will be missed.")
-    .catch((error) => error.message);
+// Delete user doc and account
+const deleteUser = async (password) => {
+  const DUC = await deleteUserDoc(currUser.uid);
+  if (DUC && DUC.errorMsg) return DUC.errorMsg;
+
+  const R = await reauthenticate(password);
+  if (R && R.errorMsg) return R.errorMsg;
+
+  const DUA = await deleteUserAccount();
+  if (DUA && DUA.errorMsg) return DUA.errorMsg;
+
+  return "Account deleted, You will be missed.";
 };
 
 // Delete doc by docId
-const deleteDoc = (docId) => {
-  return (
-    db
-      .collection("scores")
-      .doc(docId)
-      .delete()
-      // .then(() => console.log("User doc deleted"))
-      .catch((error) => error)
-  );
-};
+const deleteUserDoc = (docId) =>
+  db
+    .collection("scores")
+    .doc(docId)
+    .delete()
+    .catch((error) => handleError("deleteUserDoc", error));
 
 // Reauthenticate with password
 const reauthenticate = (password) => {
   let credentials = firebase.auth.EmailAuthProvider.credential(
-    currUser.email,
+    auth.currentUser.email,
     password
   );
 
-  return (
-    auth.currentUser
-      .reauthenticateWithCredential(credentials)
-      // .then(() => console.log("Reauthenticated"))
-      .catch((error) => error)
-  );
+  return auth.currentUser
+    .reauthenticateWithCredential(credentials)
+    .catch((error) => handleError("reauthenticate", error));
 };
+
+// Delete user Auth account
+const deleteUserAccount = () =>
+  auth.currentUser
+    .delete()
+    .catch((error) => handleError("deleteUserAccount", error));
 
 export {
   db,
