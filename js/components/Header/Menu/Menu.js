@@ -36,7 +36,8 @@ class Menu extends Component {
       h(
         "button",
         { class: "toggle", onClick: () => this.toggleMenuVisibility() },
-        h(Icon, { name: showMenu ? "close" : "menu" })
+        h(Icon, { className: !showMenu ? "active" : "", name: "menu" }),
+        h(Icon, { className: showMenu ? "active" : "", name: "close" })
       ),
       showMenu &&
         h(

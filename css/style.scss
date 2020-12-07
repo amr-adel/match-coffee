@@ -85,6 +85,30 @@ input[type="submit"],
   }
 }
 
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes enlarge {
+  0% {
+    max-height: 1vh;
+    // width: 10vw;
+  }
+  99% {
+    overflow: hidden;
+  }
+  100% {
+    max-height: calc(100% - min(20vh, 20vw));
+    overflow: auto;
+    // width: auto;
+  }
+}
+
 #temp-cards {
   width: 0;
   height: 0;

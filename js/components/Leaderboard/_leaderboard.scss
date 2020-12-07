@@ -18,6 +18,12 @@
       @include notLast {
         border-bottom: 1px solid $beige;
       }
+
+      .curr-user {
+        font-size: $s;
+        color: $orange-d;
+        margin-left: $xxs;
+      }
     }
   }
 

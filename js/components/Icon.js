@@ -1,9 +1,10 @@
 import { h } from "../index.js";
 
-const Icon = ({ name }) => {
+const Icon = ({ name, className }) => {
+  const iconProps = className ? { class: className } : {};
   return name === "bean"
-    ? h("img", { src: "./images/coffee-bean.svg" })
-    : h("svg", null, h("use", { href: `./images/icons.svg#${name}` }));
+    ? h("img", { ...iconProps, src: "./images/coffee-bean.svg" })
+    : h("svg", iconProps, h("use", { href: `./images/icons.svg#${name}` }));
 };
 
 export { Icon };
