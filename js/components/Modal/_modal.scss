@@ -20,6 +20,7 @@
     min-width: 25rem;
     max-height: 1vh;
     max-width: min(calc(100% - min(20vh, 20vw)), 40rem);
+    text-align: center;
     overflow: hidden;
     animation: enlarge 0.2s ease-out 0.1s forwards;
 

@@ -76,6 +76,15 @@ class Board extends Component {
     this.setState({ ...initialState, cards });
   };
 
+  // Animation
+  animate = (animationName, cardToAnimate) => {
+    const aCard = document.getElementById(cardToAnimate);
+    aCard.classList.add(animationName);
+    aCard.onanimationend = () => {
+      aCard.classList.remove(animationName);
+    };
+  };
+
   // Card matching logic
   reveal = (cardId) => {
     const { glance, matches, cards, hold } = this.state;
@@ -113,8 +122,10 @@ class Board extends Component {
       const cardsUpdated = positiveMatch
         ? // If the seconed card does match the first one, mark them as matched and keep visible
           cards.map((card) => {
-            if (card.bgId === currentCard.bgId)
+            if (card.bgId === currentCard.bgId) {
+              this.animate("tada", card.cardId);
               return { ...card, show: true, matched: true };
+            }
             return card;
           })
         : // If the seconed card doesn't match the first one, hide both
@@ -122,8 +133,11 @@ class Board extends Component {
             if (
               card.cardId === currentCard.cardId ||
               card.cardId === glance.cardId
-            )
+            ) {
+              this.animate("shake", card.cardId);
               return { ...card, show: false };
+            }
+
             return card;
           });
 

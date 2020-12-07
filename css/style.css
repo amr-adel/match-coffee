@@ -130,6 +130,7 @@ html {
   width: var(--base);
   height: var(--base);
   position: relative;
+  display: block;
   cursor: pointer;
 }
 .nav .toggle svg {
@@ -346,6 +347,7 @@ html {
   min-width: 25rem;
   max-height: 1vh;
   max-width: min(calc(100% - min(20vh, 20vw)), 40rem);
+  text-align: center;
   overflow: hidden;
   animation: enlarge 0.2s ease-out 0.1s forwards;
 }
@@ -571,6 +573,42 @@ input[type=submit]:disabled,
   100% {
     max-height: calc(100% - min(20vh, 20vw));
     overflow: auto;
+  }
+}
+.shake {
+  animation: shake 0.75s both;
+}
+
+.tada {
+  animation: tada 0.75s both;
+}
+
+@keyframes shake {
+  from, to {
+    transform: translate3d(0, 0, 0);
+  }
+  15%, 45%, 75% {
+    transform: translate3d(-10px, 0, 0);
+  }
+  30%, 60%, 90% {
+    transform: translate3d(10px, 0, 0);
+  }
+}
+@keyframes tada {
+  from {
+    transform: scale3d(1, 1, 1);
+  }
+  10%, 20% {
+    transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -3deg);
+  }
+  30%, 50%, 70%, 90% {
+    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+  }
+  40%, 60%, 80% {
+    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+  }
+  to {
+    transform: scale3d(1, 1, 1);
   }
 }
 #temp-cards {
