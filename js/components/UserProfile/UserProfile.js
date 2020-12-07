@@ -25,7 +25,7 @@ class UserProfile extends Component {
       h(
         "div",
         { class: "beans" },
-        h("p", null, beans && Number.isInteger(beans) ? beans : "---"),
+        h("p", null, beans && Number.isInteger(beans) ? beans : "--"),
         h("img", { src: "./images/coffee-bean.svg" })
       ),
       h("p", { class: "email" }, `(${currUser.email})`),

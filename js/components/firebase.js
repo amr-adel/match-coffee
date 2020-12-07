@@ -79,6 +79,7 @@ const getLeaderboard = () =>
         leaderboardArray.push({
           name: doc.data().displayName,
           beans: doc.data().beans,
+          isCurrUser: currUser && doc.id === currUser.uid,
         });
       });
       return leaderboardArray;

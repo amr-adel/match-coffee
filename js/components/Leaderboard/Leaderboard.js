@@ -11,14 +11,22 @@ class Leaderboard extends Component {
       "ol",
       { class: "leaderboard-list" },
       leaderboard &&
-        leaderboard.map((user) =>
-          h(
-            "li",
-            null,
-            h("span", { class: "user-name" }, user.name),
-            h("span", { class: "user-beans" }, user.beans)
-          )
-        )
+        (leaderboard.length > 0
+          ? leaderboard.map((user) =>
+              h(
+                "li",
+                null,
+                h(
+                  "span",
+                  { class: "user-name" },
+                  user.name,
+                  user.isCurrUser && h("span", { class: "curr-user" }, "[you]")
+                ),
+                h("span", { class: "user-beans" }, user.beans)
+              )
+            )
+          : h("p", null, "No players yet!")),
+      !leaderboard && h("p", null, "Loading...")
     );
 
     return h(
