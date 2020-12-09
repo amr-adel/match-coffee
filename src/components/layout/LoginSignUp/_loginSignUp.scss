@@ -1,0 +1,22 @@
+.login-screen {
+  .login,
+  .sign-up {
+    color: $brown-2;
+    display: inline-block;
+    width: 50%;
+    text-align: center;
+    font-size: $base;
+    line-height: $xl;
+    background-color: $beige;
+    border: 1px solid $beige-d;
+    margin-bottom: $xxs;
+    cursor: pointer;
+  }
+
+  .active {
+    color: $orange-d;
+    background-color: transparent;
+    border-bottom: none;
+    cursor: default;
+  }
+}

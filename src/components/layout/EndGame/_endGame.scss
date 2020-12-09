@@ -1,0 +1,19 @@
+.endgame-screen {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  .rating {
+    margin: $xxs 0;
+    justify-content: center;
+    width: 100%;
+    border: none;
+  }
+
+  .moves,
+  .stopwatch {
+    width: 50%;
+    margin: $xxs auto;
+    padding: $xxs;
+  }
+}

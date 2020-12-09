@@ -3,19 +3,18 @@
 @import "./generic";
 @import "./sass/";
 
-@import "../js/components/Header/header";
-@import "../js/components/Header/Menu/menu";
-@import "../js/components/Rating/rating";
-@import "../js/components/Restart/restart";
-@import "../js/components/Board/Board";
-@import "../js/components/Board/Card/card";
-@import "../js/components/Stopwatch/stopwatch";
-@import "../js/components/Moves/moves";
-@import "../js/components/Modal/modal";
-@import "../js/components/EndGame/endgame";
-@import "../js/components/Login/login";
-@import "../js/components/UserProfile/userProfile";
-@import "../js/components/Leaderboard/leaderboard";
+@import "../src/components/layout/Header/header";
+@import "../src/components/layout/Menu/menu";
+@import "../src/components/layout/Rating/rating";
+@import "../src/components/layout/Restart/restart";
+@import "../src/components/layout/Board/board";
+@import "../src/components/layout/Stopwatch/stopwatch";
+@import "../src/components/layout/Moves/moves";
+@import "../src/components/layout/Modal/modal";
+@import "../src/components/layout/EndGame/endGame";
+@import "../src/components/layout/LoginSignUp/loginSignUp";
+@import "../src/components/layout/UserProfile/userProfile";
+@import "../src/components/layout/Leaderboard/leaderboard";
 
 body {
   font-family: "Oswald", sans-serif;
@@ -83,6 +82,12 @@ input[type="submit"],
   &:disabled {
     cursor: default;
   }
+}
+
+.error-msg::before {
+  content: "*";
+  color: $orange-d;
+  margin-right: $xxs;
 }
 
 @keyframes fadeIn {

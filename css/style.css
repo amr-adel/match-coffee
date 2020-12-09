@@ -180,12 +180,12 @@ html {
   border-right: 1rem solid transparent;
   border-bottom: 1rem solid var(--brown-4);
 }
-.nav ul .user {
+.nav ul #user-profile {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.nav ul .user svg {
+.nav ul #user-profile svg {
   color: var(--brown-1);
   width: var(--s);
   height: var(--s);
@@ -241,8 +241,7 @@ html {
   width: min(calc(100vw - var(--base)), calc(100vh - calc(4 * var(--xl))));
   height: min(calc(100vw - var(--base)), calc(100vh - calc(4 * var(--xl))));
 }
-
-.card {
+.board .card {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -251,35 +250,35 @@ html {
   background: url(../images/coffee-bean.svg) no-repeat center;
   background-size: contain;
 }
-.card[data-bgId=n78d2ps] {
+.board .card[data-bgId=n78d2ps] {
   /*    border: 4px solid #eb3b5a;*/
   background-image: url(../images/cards/card-1.svg);
 }
-.card[data-bgId=n8sd1p0] {
+.board .card[data-bgId=n8sd1p0] {
   /*    border: 4px solid #fa8231;*/
   background-image: url(../images/cards/card-2.svg);
 }
-.card[data-bgId=n74dfp6] {
+.board .card[data-bgId=n74dfp6] {
   /*    border: 4px solid #f7b731;*/
   background-image: url(../images/cards/card-3.svg);
 }
-.card[data-bgId=n06d9pa] {
+.board .card[data-bgId=n06d9pa] {
   /*    border: 4px solid #20bf6b;*/
   background-image: url(../images/cards/card-4.svg);
 }
-.card[data-bgId=n5rdmp2] {
+.board .card[data-bgId=n5rdmp2] {
   /*    border: 4px solid #0fb9b1;*/
   background-image: url(../images/cards/card-5.svg);
 }
-.card[data-bgId=n18dypr] {
+.board .card[data-bgId=n18dypr] {
   /*    border: 4px solid #2d98da;*/
   background-image: url(../images/cards/card-6.svg);
 }
-.card[data-bgId=n6pdipz] {
+.board .card[data-bgId=n6pdipz] {
   /*    border: 4px solid #3867d6;*/
   background-image: url(../images/cards/card-7.svg);
 }
-.card[data-bgId=n75dnpc] {
+.board .card[data-bgId=n75dnpc] {
   /*    border: 4px solid #8854d0;*/
   background-image: url(../images/cards/card-8.svg);
 }
@@ -341,13 +340,13 @@ html {
 }
 .modal .modal-body {
   background-color: var(--white);
+  text-align: center;
   padding: var(--s);
   box-shadow: var(--shadow-lg);
   border-radius: var(--roundness);
-  min-width: 25rem;
+  width: calc(100vw - var(--xl));
   max-height: 1vh;
   max-width: min(calc(100% - min(20vh, 20vw)), 40rem);
-  text-align: center;
   overflow: hidden;
   animation: enlarge 0.2s ease-out 0.1s forwards;
 }
@@ -367,42 +366,24 @@ html {
   margin: var(--xxs) 0;
 }
 
-.message {
+.endgame-screen {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  max-width: 25rem;
 }
-.message .message-title,
-.message .rating,
-.message p {
-  width: 100%;
-}
-.message .message-title {
-  text-align: center;
-  font-weight: normal;
-  color: var(--orange-d);
-  margin-bottom: var(--xxs);
-}
-.message .rating {
-  padding-bottom: var(--s);
-  margin: var(--xxs) auto;
+.endgame-screen .rating {
+  margin: var(--xxs) 0;
   justify-content: center;
+  width: 100%;
+  border: none;
 }
-.message p {
-  margin: var(--xxs) auto;
-  text-align: center;
-}
-.message .moves,
-.message .stopwatch {
+.endgame-screen .moves,
+.endgame-screen .stopwatch {
   width: 50%;
   margin: var(--xxs) auto;
   padding: var(--xxs);
 }
 
-.login-screen {
-  width: 25rem;
-}
 .login-screen .login,
 .login-screen .sign-up {
   color: var(--brown-2);
@@ -553,6 +534,12 @@ input[type=submit]:hover:not(:disabled),
 input[type=submit]:disabled,
 .btn:disabled {
   cursor: default;
+}
+
+.error-msg::before {
+  content: "*";
+  color: var(--orange-d);
+  margin-right: var(--xxs);
 }
 
 @keyframes fadeIn {
