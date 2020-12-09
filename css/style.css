@@ -364,6 +364,7 @@ html {
 }
 .modal p {
   margin: var(--xxs) 0;
+  width: 100%;
 }
 
 .endgame-screen {

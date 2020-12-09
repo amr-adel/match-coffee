@@ -32,7 +32,6 @@
 
   .title {
     font-size: $l;
-    // text-align-last: left;
     color: $orange-d;
     font-weight: normal;
     border-bottom: 1px solid $gray;
@@ -42,5 +41,6 @@
 
   p {
     margin: $xxs 0;
+    width: 100%;
   }
 }

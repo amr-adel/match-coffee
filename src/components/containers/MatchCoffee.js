@@ -22,7 +22,7 @@ class MatchCoffee extends Component {
   state = { ...initialState, game: 0 };
 
   componentDidMount() {
-    setTimeout(() => this.endGame("Success"), 2000);
+    // setTimeout(() => this.endGame("Success"), 2000);
   }
 
   init = () => {
