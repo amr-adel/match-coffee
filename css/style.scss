@@ -16,6 +16,12 @@
 @import "../src/components/layout/UserProfile/userProfile";
 @import "../src/components/layout/Leaderboard/leaderboard";
 
+html {
+  @include media(xl) {
+    font-size: 75%;
+  }
+}
+
 body {
   font-family: "Oswald", sans-serif;
   font-size: 1.6rem;

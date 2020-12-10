@@ -14,6 +14,8 @@
     grid-column-gap: $s;
     width: min(calc(100vw - var(--base)), calc(100vh - calc(4 * var(--xl))));
     height: min(calc(100vw - var(--base)), calc(100vh - calc(4 * var(--xl))));
+    max-width: 50rem;
+    max-height: 50rem;
   }
 
   .card {

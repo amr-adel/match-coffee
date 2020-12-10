@@ -8,6 +8,10 @@
   display: flex;
   align-items: center;
 
+  @include media(xl) {
+    padding: 0 calc(50vw - 52rem);
+  }
+
   .brand {
     margin-right: auto;
   }

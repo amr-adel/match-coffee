@@ -26,8 +26,9 @@ class MenuContainer extends Component {
   };
 
   handleMenuClicks = (e) => {
-    if (e.target.tagName === "LI") {
-      this.props.setModal(e.target.id);
+    // (e.target.closest) to tigger action if user clicked on the "SVG" icon
+    if (e.target.tagName === "LI" || e.target.closest("li")) {
+      this.props.setModal(e.target.id || e.target.closest("li").id);
       this.toggleMenuVisibility();
     }
   };

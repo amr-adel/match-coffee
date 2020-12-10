@@ -1,4 +1,8 @@
 .moves {
   grid-area: moves;
   @include footerData;
+
+  @include media(xl) {
+    padding-right: calc(50vw - 51rem);
+  }
 }

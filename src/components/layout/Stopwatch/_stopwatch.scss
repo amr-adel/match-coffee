@@ -1,4 +1,8 @@
 .stopwatch {
   grid-area: stopwatch;
   @include footerData;
+
+  @include media(xl) {
+    padding-left: calc(50vw - 51rem);
+  }
 }

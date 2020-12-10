@@ -1,5 +1,5 @@
 .modal {
-  position: absolute;
+  position: fixed;
   top: 0;
   bottom: 0;
   right: 0;
@@ -18,9 +18,9 @@
     padding: $s;
     box-shadow: $shadow-lg;
     border-radius: $roundness;
-    width: calc(100vw - var(--xl));
+    width: 100%;
     max-height: 1vh;
-    max-width: min(calc(100% - min(20vh, 20vw)), 40rem);
+    max-width: min(calc(100% - min(20vh, 10vw)), 40rem);
     overflow: hidden;
     animation: enlarge 0.2s ease-out 0.1s forwards;
 
