@@ -1,0 +1,23 @@
+.about-screen {
+  text-align: left;
+
+  .title {
+    text-align: center;
+  }
+
+  p {
+    width: auto;
+    margin: 0 0 $xxs;
+  }
+
+  img {
+    display: inline-block;
+    margin: 0 $xxs;
+    width: $s;
+    height: $s;
+  }
+
+  .orange {
+    color: $orange-d;
+  }
+}

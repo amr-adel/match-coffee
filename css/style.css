@@ -78,6 +78,7 @@ button {
 
 .link {
   color: var(--orange-d);
+  margin: 0 3px;
   text-decoration: underline;
   cursor: pointer;
 }
@@ -504,6 +505,26 @@ html {
   padding-right: var(--l);
   background: url(../images/coffee-bean.svg) no-repeat center right;
   background-size: contain;
+}
+
+.about-screen {
+  text-align: left;
+}
+.about-screen .title {
+  text-align: center;
+}
+.about-screen p {
+  width: auto;
+  margin: 0 0 var(--xxs);
+}
+.about-screen img {
+  display: inline-block;
+  margin: 0 var(--xxs);
+  width: var(--s);
+  height: var(--s);
+}
+.about-screen .orange {
+  color: var(--orange-d);
 }
 
 @media screen and (min-width: 1280px) {

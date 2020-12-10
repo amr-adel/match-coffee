@@ -11,6 +11,7 @@ import { LeaderboardContainer } from "./LeaderboardContainer.js";
 import { LoginSignupContainer } from "./LoginSignupContainer.js";
 import { UserProfileContainer } from "./UserProfileContainer.js";
 import { EndGame } from "../layout/EndGame/EndGame.js";
+import { About } from "../layout/About/About.js";
 
 const initialState = {
   time: 90,
@@ -82,7 +83,7 @@ class MatchCoffee extends Component {
         content = h(LeaderboardContainer);
         break;
       case "about":
-        content = "About!";
+        content = h(About);
         break;
     }
 
