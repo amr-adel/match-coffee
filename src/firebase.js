@@ -7,8 +7,8 @@ const firebaseConfig = {
 
 // Handle Firebase errors
 const handleError = (origin, error) => {
-  console.info(`From ${origin}:`);
-  console.error(error);
+  // console.info(`From ${origin}:`);
+  // console.error(error);
   return { errorMsg: error.message || `${origin} error!` };
 };
 
