@@ -1,0 +1,21 @@
+{
+  "name": "manage-admins",
+  "version": "1.0.0",
+  "description": "Manage admins through Firebase admin SDK",
+  "main": "admins.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "netlify",
+    "serverless",
+    "js",
+    "firebase",
+    "admin-sdk"
+  ],
+  "author": "Netlify",
+  "license": "MIT",
+  "dependencies": {
+    "firebase-admin": "^9.4.2"
+  }
+}
