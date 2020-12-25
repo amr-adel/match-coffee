@@ -1,0 +1,3 @@
+[build]
+command = "cd funs/admins && npm install"
+functions = "funs"
