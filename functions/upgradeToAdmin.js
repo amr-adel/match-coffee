@@ -6,14 +6,23 @@ admin.initializeApp({
 });
 
 exports.handler = async function (event, context) {
+  const uid = event.queryStringParameters.uid;
+
   return admin
     .auth()
-    .getUser("zavUsdNfT0cvWV6Qaaa3dxUCB3o1")
-    .then((userRecord) => {
+    .setCustomUserClaims(uid, {
+      admin: true,
+    })
+    .then(() => {
       return {
         statusCode: 200,
-        body: JSON.stringify(userRecord),
+        body: JSON.stringify({ msg: "Upgraded successfully!" }),
       };
     })
-    .catch((error) => `Error fetching user data:${error}`);
+    .catch((error) => {
+      return {
+        statusCode: 500,
+        body: JSON.stringify(error),
+      };
+    });
 };
