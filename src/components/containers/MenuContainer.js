@@ -48,7 +48,7 @@ class MenuContainer extends Component {
     ];
 
     if (currentUser && currentUser.isAdmin) {
-      menuItems.push({ text: "Admin Panel", id: "adminPanel" });
+      menuItems.push({ text: "Admin Panel", id: "admin-panel" });
     }
 
     return h(Menu, {

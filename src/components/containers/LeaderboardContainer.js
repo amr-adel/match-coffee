@@ -4,7 +4,7 @@ import { Leaderboard } from "../layout/Leaderboard/Leaderboard.js";
 
 class LeaderboardContainer extends Component {
   componentDidMount() {
-    getLeaderboard().then((data) => this.setState({ list: data }));
+    getLeaderboard(10).then((data) => this.setState({ list: data }));
   }
 
   render({}, { list }) {

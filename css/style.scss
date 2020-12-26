@@ -16,6 +16,7 @@
 @import "../src/components/layout/UserProfile/userProfile";
 @import "../src/components/layout/Leaderboard/leaderboard";
 @import "../src/components/layout/About/about";
+@import "../src/components/layout/AdminPanel/adminPanel";
 
 html {
   @include media(xl) {

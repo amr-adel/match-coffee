@@ -28,7 +28,6 @@ auth.onAuthStateChanged((user) => {
 
     user.getIdTokenResult().then((idTokenResult) => {
       currentUser.isAdmin = idTokenResult.claims.admin;
-      console.log("currentUser", currentUser);
     });
 
     // Add "displayName" to currentUser after sign up
@@ -98,11 +97,11 @@ const getUserScore = (id = currentUser.uid) =>
     .catch((error) => handleError("getUserScore", error).errorMsg);
 
 // Get 20 users with highest scores
-const getLeaderboard = () =>
+const getLeaderboard = (n) =>
   db
     .collection("scores")
     .orderBy("beans", "desc")
-    .limit(20)
+    .limit(n)
     .get()
     .then((querySnapshot) => {
       const leaderboardArray = [];
@@ -110,6 +109,7 @@ const getLeaderboard = () =>
         leaderboardArray.push({
           name: doc.data().displayName,
           beans: doc.data().beans,
+          id: doc.id,
           isCurrentUser: currentUser && doc.id === currentUser.uid,
         });
       });
@@ -157,6 +157,66 @@ const deleteUserAccount = () =>
     .delete()
     .catch((error) => handleError("deleteUserAccount", error));
 
+// Get all users
+const getUsers = async () => {
+  const users = await fetch(
+    "https://match-coffee.netlify.app/.netlify/functions/getUsers"
+  )
+    .then((response) => response.json())
+    .then((data) => data.users);
+
+  const usersBeans = {};
+
+  const usersDocs = await getLeaderboard(1000);
+
+  for (let doc of usersDocs) {
+    usersBeans[doc.id] = doc.beans;
+  }
+
+  return users.map((user) => {
+    return {
+      ...user,
+      isCurrentUser: currentUser && user.uid === currentUser.uid,
+      beans: usersBeans[user.uid],
+    };
+  });
+};
+
+// Create random users from "https://randomuser.me"
+const createRandomUsers = async (n) => {
+  const users = await fetch(
+    `https://randomuser.me/api/?results=${n}&inc=login,email,name&password=upper,lower,number,8`
+  )
+    .then((res) => res.json())
+    .then((data) => data.results);
+
+  const randomScore = () => Math.floor(Math.random() * 84);
+
+  for (let user of users) {
+    logout();
+
+    await new Promise((resolve) =>
+      setTimeout(() => {
+        resolve();
+      }, 2000)
+    );
+
+    await createUser(
+      user.name.first,
+      user.email,
+      user.login.password,
+      randomScore()
+    );
+
+    await new Promise((resolve) =>
+      setTimeout(() => {
+        resolve();
+      }, 3000)
+    );
+  }
+};
+// createRandomUsers(50);
+
 export {
   createUser,
   loginUser,
@@ -166,4 +226,5 @@ export {
   getLeaderboard,
   deleteUser,
   currentUser,
+  getUsers,
 };

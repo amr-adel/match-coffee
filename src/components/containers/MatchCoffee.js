@@ -12,6 +12,7 @@ import { LoginSignupContainer } from "./LoginSignupContainer.js";
 import { UserProfileContainer } from "./UserProfileContainer.js";
 import { EndGame } from "../layout/EndGame/EndGame.js";
 import { About } from "../layout/About/About.js";
+import { AdminPanelContainer } from "./AdminPanelContainer.js";
 
 const initialState = {
   time: 90,
@@ -84,6 +85,9 @@ class MatchCoffee extends Component {
         break;
       case "about":
         content = h(About);
+        break;
+      case "admin-panel":
+        content = h(AdminPanelContainer);
         break;
     }
 
