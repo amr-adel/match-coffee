@@ -18,14 +18,17 @@ exports.handler = async function (event, context) {
     .then((listUsersResult) => listUsersResult.users)
     .then((users) => {
       return users.map((user) => {
+        let isAdmin = false;
+
+        if (user.customClaims) {
+          isAdmin = user.customClaims.admin;
+        }
+
         return {
           name: user.displayName,
           uid: user.uid,
           email: user.email,
-          isAdmin: () => {
-            if (user.customClaims) return customClaims.admin;
-            return false;
-          },
+          isAdmin,
         };
       });
     })
