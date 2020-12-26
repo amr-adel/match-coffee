@@ -526,6 +526,76 @@ html {
   color: var(--orange-d);
 }
 
+.admin-panel {
+  font-size: 1.8rem;
+}
+.admin-panel .users-list {
+  display: flex;
+  flex-direction: column;
+}
+.admin-panel .users-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--xxs) 0;
+  color: var(--brown-3);
+}
+.admin-panel .users-list li:not(:last-child) {
+  border-bottom: 1px solid var(--beige);
+}
+.admin-panel .users-list li.admin {
+  order: -1;
+}
+.admin-panel .users-list li.admin .admin-button {
+  color: var(--brown-2);
+}
+.admin-panel .user-control {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.admin-panel .user-control button {
+  width: var(--base);
+  height: var(--base);
+  cursor: pointer;
+}
+.admin-panel .user-control button.admin-button {
+  color: var(--beige);
+}
+.admin-panel .user-control button:disabled {
+  color: var(--gray);
+  cursor: default;
+}
+.admin-panel .user-control button:not(:last-child) {
+  border-right: 1px solid var(--beige);
+  width: calc(var(--base) + var(--xxs));
+  margin-right: var(--xxs);
+  padding-right: var(--xxs);
+}
+.admin-panel .user-info {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+}
+.admin-panel .user-name {
+  margin-right: auto;
+}
+.admin-panel .user-email {
+  width: 100%;
+  text-align: left;
+  color: var(--brown-1);
+  font-size: var(--xs);
+}
+.admin-panel .curr-user {
+  font-size: var(--s);
+  color: var(--orange-d);
+  margin-left: var(--xxs);
+}
+.admin-panel .user-beans {
+  display: block;
+  font-size: inherit;
+  font-family: inherit;
+}
+
 @media screen and (min-width: 1280px) {
   html {
     font-size: 75%;

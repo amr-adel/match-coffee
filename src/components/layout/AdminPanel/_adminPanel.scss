@@ -1,0 +1,84 @@
+.admin-panel {
+  font-size: 1.8rem;
+
+  .users-list {
+    display: flex;
+    flex-direction: column;
+
+    li {
+      display: flex;
+      justify-content: space-between;
+      padding: $xxs 0;
+      color: $brown-3;
+
+      @include notLast {
+        border-bottom: 1px solid $beige;
+      }
+
+      &.admin {
+        order: -1;
+
+        .admin-button {
+          color: $brown-2;
+        }
+      }
+    }
+  }
+
+  .user-control {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    button {
+      width: $base;
+      height: $base;
+      cursor: pointer;
+
+      &.admin-button {
+        color: $beige;
+      }
+
+      &:disabled {
+        color: $gray;
+        cursor: default;
+      }
+
+      @include notLast {
+        border-right: 1px solid $beige;
+        width: calc(var(--base) + var(--xxs));
+        margin-right: $xxs;
+        padding-right: $xxs;
+      }
+    }
+  }
+
+  .user-info {
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+  }
+
+  .user-name {
+    margin-right: auto;
+  }
+
+  .user-email {
+    width: 100%;
+    text-align: left;
+    color: $brown-1;
+    font-size: $xs;
+  }
+
+  .curr-user {
+    font-size: $s;
+    color: $orange-d;
+    margin-left: $xxs;
+  }
+
+  .user-beans {
+    display: block;
+    font-size: inherit;
+    font-family: inherit;
+  }
+}
