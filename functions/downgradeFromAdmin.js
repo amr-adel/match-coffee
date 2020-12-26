@@ -12,12 +12,12 @@ exports.handler = async function (event, context) {
   return admin
     .auth()
     .setCustomUserClaims(uid, {
-      admin: true,
+      admin: false,
     })
     .then(() => {
       return {
         statusCode: 200,
-        body: JSON.stringify({ message: "Upgraded successfully!" }),
+        body: JSON.stringify({ message: "Downgraded successfully!" }),
       };
     })
     .catch((error) => {

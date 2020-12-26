@@ -26,6 +26,11 @@ auth.onAuthStateChanged((user) => {
     const { uid, displayName, email } = user;
     currentUser = { uid, displayName, email };
 
+    user.getIdTokenResult().then((idTokenResult) => {
+      currentUser.isAdmin = idTokenResult.claims.admin;
+      console.log("currentUser", currentUser);
+    });
+
     // Add "displayName" to currentUser after sign up
     const confirmUserDisplayName = () => {
       if (!currentUser.displayName) {

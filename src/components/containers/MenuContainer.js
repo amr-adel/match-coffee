@@ -1,5 +1,6 @@
 import { Component, h } from "../../index.js";
 import { Menu } from "../layout/Menu/Menu.js";
+import { currentUser } from "../../firebase.js";
 
 class MenuContainer extends Component {
   constructor({ setModal }) {
@@ -36,16 +37,20 @@ class MenuContainer extends Component {
   render({}, { showMenu }) {
     const { toggleMenuVisibility, handleMenuClicks } = this;
 
-    const { currentUser } = firebase.auth();
-
     const item1 = currentUser
       ? { text: currentUser.displayName, id: "user-profile" }
       : { text: "Login / Sign up", id: "login-signup" };
+
     const menuItems = [
       item1,
       { text: "Leaderboard", id: "leaderboard" },
       { text: "About", id: "about" },
     ];
+
+    if (currentUser && currentUser.isAdmin) {
+      menuItems.push({ text: "Admin Panel", id: "adminPanel" });
+    }
+
     return h(Menu, {
       showMenu,
       menuItems,

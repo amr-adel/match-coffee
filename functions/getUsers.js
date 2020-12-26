@@ -6,18 +6,14 @@ admin.initializeApp({
 });
 
 exports.handler = async function (event, context) {
-  const senderUid = event.queryStringParameters.senderUid;
-  const uid = event.queryStringParameters.uid;
-
   return admin
     .auth()
-    .setCustomUserClaims(uid, {
-      admin: true,
-    })
-    .then(() => {
+    .listUsers()
+    .then((listUsersResult) => listUsersResult.users)
+    .then((users) => {
       return {
         statusCode: 200,
-        body: JSON.stringify({ message: "Upgraded successfully!" }),
+        body: JSON.stringify({ users }),
       };
     })
     .catch((error) => {
