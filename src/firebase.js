@@ -157,6 +157,8 @@ const deleteUserAccount = () =>
     .delete()
     .catch((error) => handleError("deleteUserAccount", error));
 
+// Admin functions ===========================================================================
+
 // Get all users
 const getUsers = async () => {
   const users = await fetch(
@@ -180,6 +182,15 @@ const getUsers = async () => {
       beans: usersBeans[user.uid],
     };
   });
+};
+
+// Toggle user role
+const toggleUserRole = async (uid, op) => {
+  const result = await fetch(
+    `https://match-coffee.netlify.app/.netlify/functions/toggleUserRole?uid=${uid}&op=${op}`
+  ).then((response) => response.json());
+
+  return result;
 };
 
 // Create random users from "https://randomuser.me"
@@ -227,4 +238,5 @@ export {
   deleteUser,
   currentUser,
   getUsers,
+  toggleUserRole,
 };

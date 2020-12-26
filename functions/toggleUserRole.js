@@ -5,24 +5,33 @@ admin.initializeApp({
   credential: admin.credential.cert(JSON.parse(adminCredentials)),
 });
 
+const headers = {
+  "Access-Control-Allow-Origin": "*",
+};
+
 exports.handler = async function (event, context) {
   const senderUid = event.queryStringParameters.senderUid;
   const uid = event.queryStringParameters.uid;
+  const op = event.queryStringParameters.op;
 
   return admin
     .auth()
     .setCustomUserClaims(uid, {
-      admin: true,
+      admin: op,
     })
     .then(() => {
       return {
         statusCode: 200,
-        body: JSON.stringify({ message: "Upgraded successfully!" }),
+        headers,
+        body: JSON.stringify({
+          message: `${op ? "Upgraded" : "Downgraded"} successfully!`,
+        }),
       };
     })
     .catch((error) => {
       return {
         statusCode: 500,
+        headers,
         body: JSON.stringify(error),
       };
     });

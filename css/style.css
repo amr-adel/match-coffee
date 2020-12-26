@@ -532,12 +532,15 @@ html {
 .admin-panel .users-list {
   display: flex;
   flex-direction: column;
+  height: 50vh;
+  overflow-y: scroll;
 }
 .admin-panel .users-list li {
   display: flex;
   justify-content: space-between;
   padding: var(--xxs) 0;
   color: var(--brown-3);
+  padding-right: var(--xxs);
 }
 .admin-panel .users-list li:not(:last-child) {
   border-bottom: 1px solid var(--beige);
