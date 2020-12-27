@@ -207,19 +207,8 @@ const isUserAnAdmin = async () => {
   const token = await auth.currentUser.getIdToken(true);
 
   const result = await fetch(
-    `https://match-coffee.netlify.app/.netlify/functions/isUserAnAdmin`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        secret: token,
-      }),
-    }
+    `https://match-coffee.netlify.app/.netlify/functions/isUserAnAdmin?token=${token}`
   ).then((response) => response.json());
-
-  console.log("result", result);
 
   return result;
 };
@@ -272,3 +261,5 @@ export {
   toggleUserRole,
   deleteUserByAdmin,
 };
+
+setTimeout(isUserAnAdmin, 3000);

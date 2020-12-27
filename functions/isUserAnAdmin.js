@@ -7,35 +7,26 @@ admin.initializeApp({
 
 const headers = {
   "Access-Control-Allow-Origin": "*",
-  "Content-Type": "application/json",
-  // "Access-Control-Request-Headers": "Content-Type",
-  // "Access-Control-Request-Method": "GET, POST",
 };
 
 exports.handler = async function (event, context) {
-  const secret = JSON.parse(event.body.secret);
+  const token = event.queryStringParameters.token;
 
-  // return admin
-  //   .auth()
-  //   .verifyIdToken(secret)
-  //   .then((decodedToken) => {
-  //     return {
-  //       statusCode: 200,
-  //       headers,
-  //       body: JSON.stringify({ secret, decodedToken }),
-  //     };
-  //   })
-  //   .catch((error) => {
-  //     return {
-  //       statusCode: 500,
-  //       headers,
-  //       body: JSON.stringify(error),
-  //     };
-  //   });
-
-  return {
-    statusCode: 200,
-    headers,
-    body: JSON.stringify({ secret }),
-  };
+  return admin
+    .auth()
+    .verifyIdToken(token)
+    .then((decodedToken) => {
+      return {
+        statusCode: 200,
+        headers,
+        body: JSON.stringify({ decodedToken }),
+      };
+    })
+    .catch((error) => {
+      return {
+        statusCode: 500,
+        headers,
+        body: JSON.stringify(error),
+      };
+    });
 };
