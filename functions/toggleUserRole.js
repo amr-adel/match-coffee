@@ -12,7 +12,7 @@ const headers = {
 exports.handler = async function (event, context) {
   const senderUid = event.queryStringParameters.senderUid;
   const uid = event.queryStringParameters.uid;
-  const op = event.queryStringParameters.op === true ? true : null;
+  const op = event.queryStringParameters.op === "upgrade" ? true : null;
 
   return admin
     .auth()
@@ -24,7 +24,8 @@ exports.handler = async function (event, context) {
         statusCode: 200,
         headers,
         body: JSON.stringify({
-          message: `${op === true ? "Upgraded" : "Downgraded"} successfully!`,
+          message: `${op === true ? "upgrade" : "downgrade"} successfull`,
+          op,
         }),
       };
     })

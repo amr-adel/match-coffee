@@ -13,18 +13,21 @@ class AdminPanelContainer extends Component {
   };
 
   handleToggleUserRole = async (uid, isAdmin) => {
-    const result = await toggleUserRole(uid, !isAdmin);
+    const op = isAdmin ? "downgrade" : "upgrade";
+    const result = await toggleUserRole(uid, op);
 
-    if (result.message.includes("successfully!")) {
+    if (result.message.includes("successfull")) {
       const updatedList = this.state.list.map((user) => {
         if (user.uid === uid) {
-          user.isAdmin = !isAdmin;
+          user.isAdmin = result.message.includes("upgrade") ? true : null;
         }
 
         return user;
       });
       this.setState({ list: updatedList });
     } else console.log("result:", result);
+
+    console.log("result:", result);
   };
 
   deleteUser = async (uid) => {
