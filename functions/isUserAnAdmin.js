@@ -11,24 +11,25 @@ const headers = {
 
 exports.handler = async function (event, context) {
   const token = event.queryStringParameters.token;
+  const user = await admin.auth().verifyIdToken(token);
 
-  return admin
-    .auth()
-    .verifyIdToken(token)
-    .then((user) => {
-      return {
-        statusCode: 200,
-        headers,
-        body: JSON.stringify({
-          message: `${user.name} is${user.admin ? "" : " NOT"} an admin`,
-        }),
-      };
-    })
-    .catch((error) => {
-      return {
-        statusCode: 500,
-        headers,
-        body: JSON.stringify(error),
-      };
-    });
+  if (user.admin === true) {
+    return {
+      statusCode: 200,
+      headers,
+      body: JSON.stringify({
+        message: `${user.name} is an admin`,
+        user,
+      }),
+    };
+  } else {
+    return {
+      statusCode: 200,
+      headers,
+      body: JSON.stringify({
+        message: "Admins ONLY",
+        user,
+      }),
+    };
+  }
 };

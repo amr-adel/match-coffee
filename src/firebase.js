@@ -159,6 +159,12 @@ const deleteUserAccount = () =>
 
 // Admin functions ===========================================================================
 
+// Get new idToken
+const getToken = async () => {
+  const token = await auth.currentUser.getIdToken(true);
+  return token;
+};
+
 // Get all users
 const getUsers = async () => {
   const users = await fetch(
@@ -204,10 +210,10 @@ const deleteUserByAdmin = async (uid) => {
 
 // Is user an admin
 const isUserAnAdmin = async () => {
-  const token = await auth.currentUser.getIdToken(true);
+  // const token = await auth.currentUser.getIdToken(true);
 
   const result = await fetch(
-    `https://match-coffee.netlify.app/.netlify/functions/isUserAnAdmin?token=${token}`
+    `https://match-coffee.netlify.app/.netlify/functions/isUserAnAdmin?token=${await getToken()}`
   ).then((response) => response.json());
 
   console.log("result", result);
