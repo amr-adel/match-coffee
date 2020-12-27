@@ -10,23 +10,29 @@ const headers = {
 };
 
 exports.handler = async function (event, context) {
-  const secret = event.body.secret.json();
+  const secret = event.body.secret;
 
-  return admin
-    .auth()
-    .verifyIdToken(secret)
-    .then((decodedToken) => {
-      return {
-        statusCode: 200,
-        headers,
-        body: JSON.stringify(decodedToken),
-      };
-    })
-    .catch((error) => {
-      return {
-        statusCode: 500,
-        headers,
-        body: JSON.stringify(error),
-      };
-    });
+  // return admin
+  //   .auth()
+  //   .verifyIdToken(secret)
+  //   .then((decodedToken) => {
+  //     return {
+  //       statusCode: 200,
+  //       headers,
+  //       body: JSON.stringify({ secret, decodedToken }),
+  //     };
+  //   })
+  //   .catch((error) => {
+  //     return {
+  //       statusCode: 500,
+  //       headers,
+  //       body: JSON.stringify(error),
+  //     };
+  //   });
+
+  return {
+    statusCode: 200,
+    headers,
+    body: JSON.stringify({ secret }),
+  };
 };
