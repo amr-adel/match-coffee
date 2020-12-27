@@ -210,6 +210,8 @@ const isUserAnAdmin = async () => {
     `https://match-coffee.netlify.app/.netlify/functions/isUserAnAdmin?token=${token}`
   ).then((response) => response.json());
 
+  console.log("result", result);
+
   return result;
 };
 

@@ -15,11 +15,13 @@ exports.handler = async function (event, context) {
   return admin
     .auth()
     .verifyIdToken(token)
-    .then((decodedToken) => {
+    .then((user) => {
       return {
         statusCode: 200,
         headers,
-        body: JSON.stringify({ decodedToken }),
+        body: JSON.stringify({
+          message: `${user.name} is${user.admin ? "" : " NOT"} an admin`,
+        }),
       };
     })
     .catch((error) => {
