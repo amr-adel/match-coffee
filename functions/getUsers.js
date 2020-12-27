@@ -54,7 +54,6 @@ exports.handler = async function (event, context) {
       headers,
       body: JSON.stringify({
         message: "Admins ONLY",
-        user,
       }),
     };
   }

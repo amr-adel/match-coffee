@@ -193,7 +193,7 @@ const getUsers = async () => {
 // Toggle user role
 const toggleUserRole = async (uid, op) => {
   const result = await fetch(
-    `https://match-coffee.netlify.app/.netlify/functions/toggleUserRole?uid=${uid}&op=${op}`
+    `https://match-coffee.netlify.app/.netlify/functions/toggleUserRole?uid=${uid}&op=${op}&token=${await getToken()}`
   ).then((response) => response.json());
 
   return result;
@@ -202,7 +202,7 @@ const toggleUserRole = async (uid, op) => {
 // Delete user by admin
 const deleteUserByAdmin = async (uid) => {
   const result = await fetch(
-    `https://match-coffee.netlify.app/.netlify/functions/deleteUser?uid=${uid}`
+    `https://match-coffee.netlify.app/.netlify/functions/deleteUser?uid=${uid}&token=${await getToken()}`
   ).then((response) => response.json());
 
   return result;
@@ -210,8 +210,6 @@ const deleteUserByAdmin = async (uid) => {
 
 // Is user an admin
 const isUserAnAdmin = async () => {
-  // const token = await auth.currentUser.getIdToken(true);
-
   const result = await fetch(
     `https://match-coffee.netlify.app/.netlify/functions/isUserAnAdmin?token=${await getToken()}`
   ).then((response) => response.json());
@@ -224,7 +222,7 @@ const isUserAnAdmin = async () => {
 // Create random users from "https://randomuser.me"
 const createRandomUsers = async (n) => {
   const users = await fetch(
-    `https://randomuser.me/api/?results=${n}&inc=login,email,name&password=upper,lower,number,8`
+    `https://randomuser.me/api/?results=${n}&inc=login,email,name&password=upper,lower,number,8&token=${await getToken()}`
   )
     .then((res) => res.json())
     .then((data) => data.results);
@@ -270,7 +268,7 @@ export {
   deleteUserByAdmin,
 };
 
-setTimeout(async () => {
-  const result = await getUsers();
-  console.log("result", result);
-}, 3000);
+// setTimeout(async () => {
+//   const result = await getUsers();
+//   console.log("result", result);
+// }, 3000);

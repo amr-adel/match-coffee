@@ -10,28 +10,40 @@ const headers = {
 };
 
 exports.handler = async function (event, context) {
-  const senderUid = event.queryStringParameters.senderUid;
   const uid = event.queryStringParameters.uid;
+  const token = event.queryStringParameters.token;
+  const user = await admin.auth().verifyIdToken(token);
 
-  admin.firestore().collection("scores").doc(uid).delete();
+  if (user.admin === true) {
+    admin.firestore().collection("scores").doc(uid).delete();
 
-  return admin
-    .auth()
-    .deleteUser(uid)
-    .then(() => {
-      return {
-        statusCode: 200,
-        headers,
-        body: JSON.stringify({
-          message: "Deleted successfully!",
-        }),
-      };
-    })
-    .catch((error) => {
-      return {
-        statusCode: 500,
-        headers,
-        body: JSON.stringify(error),
-      };
-    });
+    return admin
+      .auth()
+      .deleteUser(uid)
+      .then(() => {
+        return {
+          statusCode: 200,
+          headers,
+          body: JSON.stringify({
+            message: "Deleted successfully!",
+          }),
+        };
+      })
+      .catch((error) => {
+        return {
+          statusCode: 500,
+          headers,
+          body: JSON.stringify(error),
+        };
+      });
+  } else {
+    return {
+      statusCode: 200,
+      headers,
+      body: JSON.stringify({
+        message: "Admins ONLY",
+        user,
+      }),
+    };
+  }
 };
