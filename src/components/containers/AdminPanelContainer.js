@@ -8,7 +8,7 @@ class AdminPanelContainer extends Component {
   }
 
   handleFilter = (e) => {
-    const { value: query } = e.target;
+    const query = e.target.value.toLowerCase();
     this.setState({ query });
   };
 
@@ -26,8 +26,6 @@ class AdminPanelContainer extends Component {
       });
       this.setState({ list: updatedList });
     } else console.log("result:", result);
-
-    console.log("result:", result);
   };
 
   deleteUser = async (uid) => {
