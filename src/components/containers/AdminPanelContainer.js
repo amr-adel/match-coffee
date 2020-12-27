@@ -30,7 +30,10 @@ class AdminPanelContainer extends Component {
   deleteUser = async (uid) => {
     const result = await deleteUserByAdmin(uid);
 
-    console.log("result", result);
+    if (result.message.includes("successfully!")) {
+      const updatedList = this.state.list.filter((user) => user.uid != uid);
+      this.setState({ list: updatedList });
+    } else console.log("result:", result);
   };
 
   copyUserUid = (uid) => {
