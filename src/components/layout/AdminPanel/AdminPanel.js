@@ -40,10 +40,17 @@ const AdminPanel = ({
             },
             h(Icon, { name: "admin" })
           ),
-          h("button", { onclick: copyUserUid }, h(Icon, { name: "copy" })),
           h(
             "button",
-            { onclick: deleteUser, disabled: user.isCurrentUser },
+            { onclick: () => copyUserUid(user.uid) },
+            h(Icon, { name: "copy" })
+          ),
+          h(
+            "button",
+            {
+              onclick: () => deleteUser(user.uid),
+              disabled: user.isCurrentUser,
+            },
             h(Icon, { name: "delete" })
           )
         )

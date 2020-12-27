@@ -1,49 +1,62 @@
 import { Component, h } from "../../index.js";
-import { getUsers, toggleUserRole } from "../../firebase.js";
+import { getUsers, toggleUserRole, deleteUserByAdmin } from "../../firebase.js";
 import { AdminPanel } from "../layout/AdminPanel/AdminPanel.js";
 
 class AdminPanelContainer extends Component {
   componentDidMount() {
-    getUsers().then((data) =>
-      this.setState({ list: data, filteredList: data, query: "" })
-    );
+    getUsers().then((data) => this.setState({ list: data, query: "" }));
   }
 
   handleFilter = (e) => {
     const { value: query } = e.target;
     this.setState({ query });
-
-    const filteredList = this.state.list.filter((user) =>
-      user.email.includes(query)
-    );
-
-    if (filteredList.length > 0) {
-      this.setState({ filteredList });
-    } else {
-      this.setState({ filteredList: this.state.list });
-    }
   };
 
   handleToggleUserRole = async (uid, isAdmin) => {
     const result = await toggleUserRole(uid, !isAdmin);
-    console.log("result:", result);
+
+    if (result.message.includes("successfully!")) {
+      const updatedList = this.state.list.map((user) => {
+        if (user.uid === uid) {
+          user.isAdmin = !isAdmin;
+        }
+
+        return user;
+      });
+      this.setState({ list: updatedList });
+    } else console.log("result:", result);
   };
 
-  deleteUser = (uid) => {
-    console.log("User deleted");
+  deleteUser = async (uid) => {
+    const result = await deleteUserByAdmin(uid);
+
+    console.log("result", result);
   };
 
   copyUserUid = (uid) => {
-    console.log("User uid copied");
+    // https://hackernoon.com/copying-text-to-clipboard-with-javascript-df4d4988697f
+    const el = document.createElement("textarea");
+    el.value = uid;
+    el.setAttribute("readonly", "");
+    el.style.position = "absolute";
+    el.style.left = "-9999px";
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand("copy");
+    document.body.removeChild(el);
   };
 
-  render({}, { filteredList, query }) {
+  render({}, { list, query }) {
     const {
       handleFilter,
       handleToggleUserRole,
       deleteUser,
       copyUserUid,
     } = this;
+
+    const filteredList =
+      list && list.filter((user) => user.email.includes(query));
+
     return h(AdminPanel, {
       filteredList,
       query,

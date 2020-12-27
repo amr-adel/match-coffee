@@ -7,8 +7,8 @@ const firebaseConfig = {
 
 // Handle Firebase errors
 const handleError = (origin, error) => {
-  // console.info(`From ${origin}:`);
-  // console.error(error);
+  console.info(`From ${origin}:`);
+  console.error(error);
   return { errorMsg: error.message || `${origin} error!` };
 };
 
@@ -193,6 +193,15 @@ const toggleUserRole = async (uid, op) => {
   return result;
 };
 
+// Delete user by admin
+const deleteUserByAdmin = async (uid) => {
+  const result = await fetch(
+    `https://match-coffee.netlify.app/.netlify/functions/deleteUser?uid=${uid}`
+  ).then((response) => response.json());
+
+  return result;
+};
+
 // Create random users from "https://randomuser.me"
 const createRandomUsers = async (n) => {
   const users = await fetch(
@@ -239,4 +248,5 @@ export {
   currentUser,
   getUsers,
   toggleUserRole,
+  deleteUserByAdmin,
 };

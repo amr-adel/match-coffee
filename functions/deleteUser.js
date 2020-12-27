@@ -13,11 +13,11 @@ exports.handler = async function (event, context) {
   const senderUid = event.queryStringParameters.senderUid;
   const uid = event.queryStringParameters.uid;
 
+  admin.firestore().collection("scores").doc(uid).delete();
+
   return admin
-    .firestore()
-    .collection("scores")
-    .doc(uid)
-    .delete()
+    .auth()
+    .deleteUser(uid)
     .then(() => {
       return {
         statusCode: 200,
