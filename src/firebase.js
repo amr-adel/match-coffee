@@ -202,6 +202,28 @@ const deleteUserByAdmin = async (uid) => {
   return result;
 };
 
+// Is user an admin
+const isUserAnAdmin = async () => {
+  const token = await auth.currentUser.getIdToken(true);
+
+  const result = await fetch(
+    `https://match-coffee.netlify.app/.netlify/functions/isUserAnAdmin`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        secret: token,
+      }),
+    }
+  ).then((response) => response.json());
+
+  console.log("result", result);
+
+  return result;
+};
+
 // Create random users from "https://randomuser.me"
 const createRandomUsers = async (n) => {
   const users = await fetch(
