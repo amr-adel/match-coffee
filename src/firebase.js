@@ -168,7 +168,7 @@ const getToken = async () => {
 // Get all users
 const getUsers = async () => {
   const users = await fetch(
-    "https://match-coffee.netlify.app/.netlify/functions/getUsers"
+    `https://match-coffee.netlify.app/.netlify/functions/getUsers?token=${await getToken()}`
   )
     .then((response) => response.json())
     .then((data) => data.users);
@@ -270,4 +270,7 @@ export {
   deleteUserByAdmin,
 };
 
-setTimeout(isUserAnAdmin, 3000);
+setTimeout(async () => {
+  const result = await getUsers();
+  console.log("result", result);
+}, 3000);

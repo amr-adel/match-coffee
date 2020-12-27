@@ -10,38 +10,52 @@ const headers = {
 };
 
 exports.handler = async function (event, context) {
-  return admin
-    .auth()
-    .listUsers()
-    .then((listUsersResult) => listUsersResult.users)
-    .then((users) => {
-      return users.map((user) => {
-        let isAdmin = false;
+  const token = event.queryStringParameters.token;
+  const user = await admin.auth().verifyIdToken(token);
 
-        if (user.customClaims) {
-          isAdmin = user.customClaims.admin;
-        }
+  if (user.admin === true) {
+    return admin
+      .auth()
+      .listUsers()
+      .then((listUsersResult) => listUsersResult.users)
+      .then((users) => {
+        return users.map((user) => {
+          let isAdmin = false;
 
+          if (user.customClaims) {
+            isAdmin = user.customClaims.admin;
+          }
+
+          return {
+            name: user.displayName,
+            uid: user.uid,
+            email: user.email,
+            isAdmin,
+          };
+        });
+      })
+      .then((users) => {
         return {
-          name: user.displayName,
-          uid: user.uid,
-          email: user.email,
-          isAdmin,
+          statusCode: 200,
+          headers,
+          body: JSON.stringify({ users }),
+        };
+      })
+      .catch((error) => {
+        return {
+          statusCode: 500,
+          headers,
+          body: JSON.stringify(error),
         };
       });
-    })
-    .then((users) => {
-      return {
-        statusCode: 200,
-        headers,
-        body: JSON.stringify({ users }),
-      };
-    })
-    .catch((error) => {
-      return {
-        statusCode: 500,
-        headers,
-        body: JSON.stringify(error),
-      };
-    });
+  } else {
+    return {
+      statusCode: 200,
+      headers,
+      body: JSON.stringify({
+        message: "Admins ONLY",
+        user,
+      }),
+    };
+  }
 };
