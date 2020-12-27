@@ -7,6 +7,8 @@ admin.initializeApp({
 
 const headers = {
   "Access-Control-Allow-Origin": "*",
+  "Access-Control-Request-Headers": "Content-Type",
+  "Access-Control-Request-Method": "GET, POST",
 };
 
 exports.handler = async function (event, context) {
