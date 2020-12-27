@@ -10,11 +10,12 @@ const headers = {
 };
 
 exports.handler = async function (event, context) {
-  const uid = event.queryStringParameters.uid;
   const token = event.queryStringParameters.token;
   const user = await admin.auth().verifyIdToken(token);
 
   if (user.admin === true) {
+    const uid = event.queryStringParameters.uid;
+
     admin.firestore().collection("scores").doc(uid).delete();
 
     return admin

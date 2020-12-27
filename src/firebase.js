@@ -222,7 +222,7 @@ const isUserAnAdmin = async () => {
 // Create random users from "https://randomuser.me"
 const createRandomUsers = async (n) => {
   const users = await fetch(
-    `https://randomuser.me/api/?results=${n}&inc=login,email,name&password=upper,lower,number,8&token=${await getToken()}`
+    `https://randomuser.me/api/?results=${n}&inc=login,email,name&password=upper,lower,number,8`
   )
     .then((res) => res.json())
     .then((data) => data.results);
