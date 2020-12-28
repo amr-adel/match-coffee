@@ -2,14 +2,14 @@ import { h } from "../../../index.js";
 import { Moves } from "../Moves/Moves.js";
 import { Rating } from "../Rating/Rating.js";
 import { Stopwatch } from "../Stopwatch/Stopwatch.js";
-import { addScore, currentUser } from "../../../firebase.js";
+import { addBeans, currentUser } from "../../../firebase.js";
 import { LoginSignupContainer } from "../../containers/LoginSignupContainer.js";
 
-const EndGame = ({ result, moves, time, beans, setModal }) => {
+const EndGame = async ({ result, moves, time, beans, setModal }) => {
   const won = result === "Success";
 
   // Add current game score to user's doc if loggedin
-  if (won && currentUser) addScore(beans);
+  if (won && currentUser) await addBeans(beans);
 
   const message = h(
     "div",

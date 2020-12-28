@@ -69,10 +69,11 @@ const createUser = (name, email, password, score) =>
 const loginUser = (email, password, score) =>
   auth
     .signInWithEmailAndPassword(email, password)
-    .then((userCredential) => {
+    .then(async (userCredential) => {
       if (score) {
-        addScore(score);
+        await addBeans(score);
       }
+
       return userCredential.user.displayName;
     })
     .catch((error) => handleError("loginUser", error));
@@ -81,14 +82,26 @@ const loginUser = (email, password, score) =>
 const logout = () => auth.signOut();
 
 // Add score to user doc
-const addScore = (score) =>
-  db
-    .collection("scores")
-    .doc(auth.currentUser.uid)
-    .update({
-      beans: firebase.firestore.FieldValue.increment(score),
-    })
-    .catch((error) => handleError("addScore", error).errorMsg);
+const addBeans = async (beans) => {
+  if (beans < 1) return;
+
+  const result = await fetch(
+    `https://match-coffee.netlify.app/.netlify/functions/addBeans?beansToAdd=${beans}&token=${await getToken()}`
+  ).then((response) => response.json());
+
+  console.log("result", result);
+
+  return result;
+};
+
+// const addScore = (score) =>
+//   db
+//     .collection("scores")
+//     .doc(auth.currentUser.uid)
+//     .update({
+//       beans: firebase.firestore.FieldValue.increment(score),
+//     })
+//     .catch((error) => handleError("addScore", error).errorMsg);
 
 // Get beans for certain user
 const getUserScore = (id = currentUser.uid) =>
@@ -261,7 +274,7 @@ export {
   createUser,
   loginUser,
   logout,
-  addScore,
+  addBeans,
   getUserScore,
   getLeaderboard,
   deleteUser,
