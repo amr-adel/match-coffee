@@ -16,7 +16,7 @@ You lose a bean every 30 secondes, after 12 moves, and after 20 moves.
 - Player can login / log out / delete account.
 - Player can restart game.
 - Player's (not logged-in) score of current game will be added after login or sign up.
-- Player can see leaderboard of top 20 players.
+- Player can see leaderboard of top 10 players.
 
 ---
 

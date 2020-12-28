@@ -1,3 +1,6 @@
+/* eslint-disable no-unused-vars */
+/*global firebase, Promise*/
+
 const firebaseConfig = {
   apiKey: "AIzaSyAYRoUaWtm9ZEQJ58wNNzfgoEnq5DbkpgI",
   authDomain: "match-coffee.firebaseapp.com",

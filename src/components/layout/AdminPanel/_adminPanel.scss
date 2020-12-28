@@ -13,10 +13,7 @@
       padding: $xxs 0;
       color: $brown-3;
       padding-right: $xxs;
-
-      @include notLast {
-        border-bottom: 1px solid $beige;
-      }
+      border-bottom: 1px solid $beige;
 
       &.admin {
         order: -1;

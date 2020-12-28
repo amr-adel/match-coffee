@@ -541,8 +541,6 @@ html {
   padding: var(--xxs) 0;
   color: var(--brown-3);
   padding-right: var(--xxs);
-}
-.admin-panel .users-list li:not(:last-child) {
   border-bottom: 1px solid var(--beige);
 }
 .admin-panel .users-list li.admin {
