@@ -10,8 +10,8 @@ const firebaseConfig = {
 
 // Handle Firebase errors
 const handleError = (origin, error) => {
-  console.info(`From ${origin}:`);
-  console.error(error);
+  // console.info(`From ${origin}:`);
+  // console.error(error);
   return { errorMsg: error.message || `${origin} error!` };
 };
 
@@ -89,19 +89,10 @@ const addBeans = async (beans) => {
     `https://match-coffee.netlify.app/.netlify/functions/addBeans?beansToAdd=${beans}&token=${await getToken()}`
   ).then((response) => response.json());
 
-  console.log("result", result);
+  if (!result.message.includes("successfull")) handleError("addBeans", result);
 
   return result;
 };
-
-// const addScore = (score) =>
-//   db
-//     .collection("scores")
-//     .doc(auth.currentUser.uid)
-//     .update({
-//       beans: firebase.firestore.FieldValue.increment(score),
-//     })
-//     .catch((error) => handleError("addScore", error).errorMsg);
 
 // Get beans for certain user
 const getUserScore = (id = currentUser.uid) =>
@@ -285,6 +276,6 @@ export {
 };
 
 // setTimeout(async () => {
-//   const result = await getUsers();
+//   const result = await addBeans(7);
 //   console.log("result", result);
 // }, 3000);

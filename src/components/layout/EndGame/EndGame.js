@@ -5,11 +5,11 @@ import { Stopwatch } from "../Stopwatch/Stopwatch.js";
 import { addBeans, currentUser } from "../../../firebase.js";
 import { LoginSignupContainer } from "../../containers/LoginSignupContainer.js";
 
-const EndGame = async ({ result, moves, time, beans, setModal }) => {
+const EndGame = ({ result, moves, time, beans, setModal }) => {
   const won = result === "Success";
 
   // Add current game score to user's doc if loggedin
-  if (won && currentUser) await addBeans(beans);
+  if (won && currentUser) addBeans(beans);
 
   const message = h(
     "div",
