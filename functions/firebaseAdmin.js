@@ -72,3 +72,33 @@ module.exports.addBeans = async (token, beansToAdd) => {
     }
   });
 };
+
+module.exports.getUsers = async (token) => {
+  return this.currentUser(token).then((user) => {
+    if (user.admin === true) {
+      return admin
+        .auth()
+        .listUsers()
+        .then((listUsersResult) => listUsersResult.users)
+        .then((users) => {
+          return users.map((user) => {
+            let isAdmin = false;
+
+            if (user.customClaims) {
+              isAdmin = user.customClaims.admin;
+            }
+
+            return {
+              name: user.displayName,
+              uid: user.uid,
+              email: user.email,
+              isAdmin,
+            };
+          });
+        })
+        .catch((error) => error);
+    } else {
+      return { message: "Admins ONLY" };
+    }
+  });
+};
