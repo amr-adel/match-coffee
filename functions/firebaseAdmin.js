@@ -30,3 +30,23 @@ module.exports.deleteUser = async (token, uid) => {
     }
   });
 };
+
+module.exports.toggleUserRole = async (token, uid, op) => {
+  return this.currentUser(token).then((user) => {
+    if (user.admin === true) {
+      return admin
+        .auth()
+        .setCustomUserClaims(uid, {
+          admin: op,
+        })
+        .then(() => {
+          return {
+            message: `${op === true ? "upgrade" : "downgrade"} successfully!`,
+          };
+        })
+        .catch((error) => error);
+    } else {
+      return { message: "Admins ONLY" };
+    }
+  });
+};
