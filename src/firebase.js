@@ -212,15 +212,6 @@ const deleteUserByAdmin = async (uid) => {
     `https://match-coffee.netlify.app/.netlify/functions/deleteUser?uid=${uid}&token=${await getToken()}`
   ).then((response) => response.json());
 
-  return result;
-};
-
-// Is user an admin
-const isUserAnAdmin = async () => {
-  const result = await fetch(
-    `https://match-coffee.netlify.app/.netlify/functions/isUserAnAdmin?token=${await getToken()}`
-  ).then((response) => response.json());
-
   console.log("result", result);
 
   return result;
@@ -276,6 +267,6 @@ export {
 };
 
 // setTimeout(async () => {
-//   const result = await addBeans(7);
+//   const result = await deleteUserByAdmin(7);
 //   console.log("result", result);
 // }, 3000);
