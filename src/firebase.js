@@ -89,7 +89,8 @@ const addBeans = async (beans) => {
     `https://match-coffee.netlify.app/.netlify/functions/addBeans?beansToAdd=${beans}&token=${await getToken()}`
   ).then((response) => response.json());
 
-  if (!result.message.includes("successfull")) handleError("addBeans", result);
+  if (!result.message.includes("successfully!"))
+    handleError("addBeans", result);
 
   return result;
 };
@@ -211,8 +212,6 @@ const deleteUserByAdmin = async (uid) => {
   const result = await fetch(
     `https://match-coffee.netlify.app/.netlify/functions/deleteUser?uid=${uid}&token=${await getToken()}`
   ).then((response) => response.json());
-
-  console.log("result", result);
 
   return result;
 };

@@ -27,7 +27,7 @@ exports.handler = async function (event) {
           statusCode: 200,
           headers,
           body: JSON.stringify({
-            message: `${op === true ? "upgrade" : "downgrade"} successfull`,
+            message: `${op === true ? "upgrade" : "downgrade"} successfully!`,
             op,
           }),
         };

@@ -16,7 +16,7 @@ class AdminPanelContainer extends Component {
     const op = isAdmin ? "downgrade" : "upgrade";
     const result = await toggleUserRole(uid, op);
 
-    if (result.message.includes("successfull")) {
+    if (result.message.includes("successfully!")) {
       const updatedList = this.state.list.map((user) => {
         if (user.uid === uid) {
           user.isAdmin = result.message.includes("upgrade") ? true : null;
@@ -34,7 +34,7 @@ class AdminPanelContainer extends Component {
     if (result.message.includes("successfully!")) {
       const updatedList = this.state.list.filter((user) => user.uid != uid);
       this.setState({ list: updatedList });
-    } else console.log("result:", result);
+    } else console.error("result:", result);
   };
 
   copyUserUid = (uid) => {

@@ -27,7 +27,7 @@ exports.handler = async function (event) {
           statusCode: 200,
           headers,
           body: JSON.stringify({
-            message: `Add ${beansToAdd} beans successfull`,
+            message: `Add ${beansToAdd} beans successfully!`,
           }),
         };
       })
