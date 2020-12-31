@@ -50,3 +50,25 @@ module.exports.toggleUserRole = async (token, uid, op) => {
     }
   });
 };
+
+module.exports.addBeans = async (token, beansToAdd) => {
+  return this.currentUser(token).then((user) => {
+    if ([1, 2, 3, 4, 5].indexOf(beansToAdd) != -1) {
+      return admin
+        .firestore()
+        .collection("scores")
+        .doc(user.uid)
+        .update({
+          beans: admin.firestore.FieldValue.increment(beansToAdd),
+        })
+        .then(() => {
+          return {
+            message: `Added ${beansToAdd} beans successfully!`,
+          };
+        })
+        .catch((error) => error);
+    } else {
+      return { message: "Try harder" };
+    }
+  });
+};
