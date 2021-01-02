@@ -375,6 +375,7 @@ html {
 }
 .modal .title {
   font-size: var(--l);
+  letter-spacing: 0.02em;
   color: var(--orange-d);
   font-weight: normal;
   border-bottom: 1px solid var(--gray);
@@ -529,24 +530,39 @@ html {
 .admin-panel {
   font-size: 1.8rem;
 }
-.admin-panel .users-list {
+.admin-panel .lists {
   display: flex;
   flex-direction: column;
   height: 50vh;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
-.admin-panel .users-list li {
+.admin-panel .lists > div:not(:last-child) {
+  margin-bottom: var(--base);
+}
+.admin-panel .lists .list-title {
+  text-align: left;
+  letter-spacing: 0.02em;
+  padding-left: var(--xxs);
+  border-bottom: var(--xxs) solid var(--beige);
+}
+.admin-panel ol {
+  display: flex;
+  flex-direction: column;
+}
+.admin-panel ol li {
   display: flex;
   justify-content: space-between;
   padding: var(--xxs) 0;
   color: var(--brown-3);
   padding-right: var(--xxs);
+}
+.admin-panel ol li:not(:last-child) {
   border-bottom: 1px solid var(--beige);
 }
-.admin-panel .users-list li.admin {
+.admin-panel ol li.admin {
   order: -1;
 }
-.admin-panel .users-list li.admin .admin-button {
+.admin-panel ol li.admin .admin-button {
   color: var(--brown-2);
 }
 .admin-panel .user-control {

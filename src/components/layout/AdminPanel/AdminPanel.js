@@ -1,61 +1,80 @@
 import { h } from "../../../index.js";
-import { Icon } from "../../Icon.js";
 import { Input } from "../../Input.js";
+import { User } from "./User.js";
 
 const AdminPanel = ({
-  filteredList: list,
+  filteredLists,
   query,
   handleFilter,
   handleToggleUserRole,
   deleteUser,
   copyUserUid,
 }) => {
-  const usersList =
-    list &&
-    list.map((user) =>
+  let usersList, adminsList, orphanAccountsList, orphanDocsList;
+
+  if (filteredLists) {
+    const { admins, users, orphanAccounts, orphanDocs } = filteredLists;
+
+    adminsList =
+      admins.length > 0 &&
       h(
-        "li",
-        { key: user.uid, id: user.uid, class: user.isAdmin ? "admin" : "" },
+        "div",
+        { class: "admins" },
+        h("h3", { class: "list-title" }, "Admins"),
         h(
-          "div",
-          { class: "user-info" },
-          h(
-            "span",
-            { class: "user-name" },
-            user.name,
-            user.isCurrentUser && h("span", { class: "curr-user" }, "[you]")
-          ),
-          h("span", { class: "user-email" }, user.email)
-        ),
-        h(
-          "div",
-          { class: "user-control" },
-          h("button", { class: "user-beans" }, user.beans),
-          h(
-            "button",
-            {
-              onclick: () => handleToggleUserRole(user.uid, user.isAdmin),
-              class: "admin-button",
-              disabled: user.isCurrentUser,
-            },
-            h(Icon, { name: "admin" })
-          ),
-          h(
-            "button",
-            { onclick: () => copyUserUid(user.uid) },
-            h(Icon, { name: "copy" })
-          ),
-          h(
-            "button",
-            {
-              onclick: () => deleteUser(user.uid),
-              disabled: user.isCurrentUser,
-            },
-            h(Icon, { name: "delete" })
+          "ol",
+          { class: "admins-list" },
+          admins.map((user) =>
+            h(User, { user, handleToggleUserRole, deleteUser, copyUserUid })
           )
         )
-      )
-    );
+      );
+
+    usersList =
+      users.length > 0 &&
+      h(
+        "div",
+        { class: "users" },
+        h("h3", { class: "list-title" }, "Users"),
+        h(
+          "ol",
+          { class: "users-list" },
+          users.map((user) =>
+            h(User, { user, handleToggleUserRole, deleteUser, copyUserUid })
+          )
+        )
+      );
+
+    orphanAccountsList =
+      orphanAccounts.length > 0 &&
+      h(
+        "div",
+        { class: "orphan-accounts" },
+        h("h3", { class: "list-title" }, "Orphan accounts"),
+        h(
+          "ol",
+          { class: "orphan-accounts-list" },
+          orphanAccounts.map((user) =>
+            h(User, { user, handleToggleUserRole, deleteUser, copyUserUid })
+          )
+        )
+      );
+
+    orphanDocsList =
+      orphanDocs.length > 0 &&
+      h(
+        "div",
+        { class: "orphan-docs" },
+        h("h3", { class: "list-title" }, "Orphan Docs"),
+        h(
+          "ol",
+          { class: "orphan-docs-list" },
+          orphanDocs.map((user) =>
+            h(User, { user, handleToggleUserRole, deleteUser, copyUserUid })
+          )
+        )
+      );
+  }
 
   return h(
     "div",
@@ -68,8 +87,17 @@ const AdminPanel = ({
       placeholder: "User email",
       onInput: handleFilter,
     }),
-    list && h("ol", { class: "users-list" }, usersList),
-    !list && h("p", null, "Loading...")
+    filteredLists &&
+      h(
+        "div",
+        { class: "lists" },
+        adminsList,
+        usersList,
+        orphanAccountsList,
+        orphanDocsList
+      ),
+
+    !filteredLists && h("p", null, "Loading...")
   );
 };
 

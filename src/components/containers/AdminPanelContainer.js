@@ -2,9 +2,22 @@ import { Component, h } from "../../index.js";
 import { getUsers, toggleUserRole, deleteUserByAdmin } from "../../firebase.js";
 import { AdminPanel } from "../layout/AdminPanel/AdminPanel.js";
 
+const migrateUser = (uid, fromList, toList) => {
+  const updatedFromList = fromList.filter((user) => user.uid !== uid);
+
+  const user = fromList.filter((user) => user.uid === uid)[0];
+  user.isAdmin = user.isAdmin === true ? null : true;
+
+  const updatedToList = [...toList, user];
+
+  return [updatedFromList, updatedToList];
+};
+
 class AdminPanelContainer extends Component {
   componentDidMount() {
-    getUsers().then((data) => this.setState({ list: data, query: "" }));
+    getUsers().then((usersList) =>
+      this.setState({ allUsers: usersList, query: "" })
+    );
   }
 
   handleFilter = (e) => {
@@ -17,23 +30,52 @@ class AdminPanelContainer extends Component {
     const result = await toggleUserRole(uid, op);
 
     if (result.message.includes("successfully!")) {
-      const updatedList = this.state.list.map((user) => {
-        if (user.uid === uid) {
-          user.isAdmin = result.message.includes("upgrade") ? true : null;
-        }
+      const { admins, users } = this.state.allUsers;
+      let updatedList;
 
-        return user;
-      });
-      this.setState({ list: updatedList });
-    } else console.log("result:", result);
+      if (op === "upgrade") {
+        const { [0]: newUsers, [1]: newAdmins } = migrateUser(
+          uid,
+          users,
+          admins
+        );
+
+        updatedList = {
+          ...this.state.allUsers,
+          admins: newAdmins,
+          users: newUsers,
+        };
+      } else if (op === "downgrade") {
+        const { [0]: newAdmins, [1]: newUsers } = migrateUser(
+          uid,
+          admins,
+          users
+        );
+
+        updatedList = {
+          ...this.state.allUsers,
+          admins: newAdmins,
+          users: newUsers,
+        };
+      }
+
+      this.setState({ allUsers: updatedList });
+    } else console.error("result:", result);
   };
 
-  deleteUser = async (uid) => {
-    const result = await deleteUserByAdmin(uid);
+  deleteUser = async (uid, docOnly) => {
+    const result = await deleteUserByAdmin(uid, docOnly);
 
     if (result.message.includes("successfully!")) {
-      const updatedList = this.state.list.filter((user) => user.uid != uid);
-      this.setState({ list: updatedList });
+      const newAllUsers = {};
+
+      for (let list in this.state.allUsers) {
+        newAllUsers[list] = this.state.allUsers[list].filter(
+          (user) => user.uid != uid
+        );
+      }
+
+      this.setState({ allUsers: newAllUsers });
     } else console.error("result:", result);
   };
 
@@ -50,7 +92,7 @@ class AdminPanelContainer extends Component {
     document.body.removeChild(el);
   };
 
-  render({}, { list, query }) {
+  render({}, { allUsers, query }) {
     const {
       handleFilter,
       handleToggleUserRole,
@@ -58,11 +100,17 @@ class AdminPanelContainer extends Component {
       copyUserUid,
     } = this;
 
-    const filteredList =
-      list && list.filter((user) => user.email.includes(query));
+    const filteredLists = allUsers && {
+      admins: allUsers.admins.filter((user) => user.email.includes(query)),
+      users: allUsers.users.filter((user) => user.email.includes(query)),
+      orphanAccounts: allUsers.orphanAccounts.filter((user) =>
+        user.email.includes(query)
+      ),
+      orphanDocs: allUsers.orphanDocs,
+    };
 
     return h(AdminPanel, {
-      filteredList,
+      filteredLists,
       query,
       handleFilter,
       handleToggleUserRole,

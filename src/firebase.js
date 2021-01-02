@@ -96,10 +96,10 @@ const addBeans = async (beans) => {
 };
 
 // Get beans for certain user
-const getUserScore = (id = currentUser.uid) =>
+const getUserScore = (uid = currentUser.uid) =>
   db
     .collection("scores")
-    .doc(id)
+    .doc(uid)
     .get()
     .then((doc) => doc.data().beans)
     .catch((error) => handleError("getUserScore", error).errorMsg);
@@ -117,7 +117,7 @@ const getLeaderboard = (n) =>
         leaderboardArray.push({
           name: doc.data().displayName,
           beans: doc.data().beans,
-          id: doc.id,
+          uid: doc.id,
           isCurrentUser: currentUser && doc.id === currentUser.uid,
         });
       });
@@ -177,25 +177,54 @@ const getToken = async () => {
 const getUsers = async () => {
   const users = await fetch(
     `https://match-coffee.netlify.app/.netlify/functions/getUsers?token=${await getToken()}`
-  )
-    .then((response) => response.json())
-    .then((data) => data.users);
+  ).then((response) => response.json());
 
-  const usersBeans = {};
+  // Catch error
+  if (users.message) {
+    console.log(users);
+    return;
+  }
 
   const usersDocs = await getLeaderboard(1000);
 
-  for (let doc of usersDocs) {
-    usersBeans[doc.id] = doc.beans;
+  const usersList = {
+    admins: [],
+    users: [],
+    orphanAccounts: [],
+    orphanDocs: [],
+  };
+
+  const usersTemp = {};
+
+  for (let user of users) {
+    usersTemp[user.uid] = user;
   }
 
-  return users.map((user) => {
-    return {
-      ...user,
-      isCurrentUser: currentUser && user.uid === currentUser.uid,
-      beans: usersBeans[user.uid],
-    };
-  });
+  for (let doc of usersDocs) {
+    if (!usersTemp[doc.uid]) {
+      usersList.orphanDocs.push(doc);
+    } else {
+      if (usersTemp[doc.uid].isAdmin === true) {
+        usersList.admins.push({
+          ...doc,
+          ...usersTemp[doc.uid],
+        });
+      } else {
+        usersList.users.push({
+          ...doc,
+          ...usersTemp[doc.uid],
+        });
+      }
+
+      delete usersTemp[doc.uid];
+    }
+  }
+
+  for (let orphanAccount in usersTemp) {
+    usersList.orphanAccounts.push(usersTemp[orphanAccount]);
+  }
+
+  return usersList;
 };
 
 // Toggle user role
@@ -208,9 +237,9 @@ const toggleUserRole = async (uid, op) => {
 };
 
 // Delete user by admin
-const deleteUserByAdmin = async (uid) => {
+const deleteUserByAdmin = async (uid, docOnly) => {
   const result = await fetch(
-    `https://match-coffee.netlify.app/.netlify/functions/deleteUser?uid=${uid}&token=${await getToken()}`
+    `https://match-coffee.netlify.app/.netlify/functions/deleteUser?uid=${uid}&token=${await getToken()}&docOnly=${docOnly}`
   ).then((response) => response.json());
 
   return result;
@@ -249,7 +278,7 @@ const createRandomUsers = async (n) => {
     );
   }
 };
-// createRandomUsers(50);
+// createRandomUsers(20);
 
 export {
   createUser,
@@ -266,6 +295,6 @@ export {
 };
 
 // setTimeout(async () => {
-//   const result = await deleteUserByAdmin(7);
-//   console.log("result", result);
+//   const result = await deleteUserByAdmin("", true);
+//   console.log(result);
 // }, 3000);

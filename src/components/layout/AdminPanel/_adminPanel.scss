@@ -1,11 +1,29 @@
 .admin-panel {
   font-size: 1.8rem;
 
-  .users-list {
+  .lists {
     display: flex;
     flex-direction: column;
     height: 50vh;
-    overflow-y: scroll;
+    overflow-y: auto;
+
+    & > div {
+      @include notLast {
+        margin-bottom: $base;
+      }
+    }
+
+    .list-title {
+      text-align: left;
+      letter-spacing: 0.02em;
+      padding-left: $xxs;
+      border-bottom: $xxs solid $beige;
+    }
+  }
+
+  ol {
+    display: flex;
+    flex-direction: column;
 
     li {
       display: flex;
@@ -13,7 +31,10 @@
       padding: $xxs 0;
       color: $brown-3;
       padding-right: $xxs;
-      border-bottom: 1px solid $beige;
+
+      @include notLast {
+        border-bottom: 1px solid $beige;
+      }
 
       &.admin {
         order: -1;

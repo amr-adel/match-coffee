@@ -11,18 +11,22 @@ module.exports.currentUser = async (token) => {
   return user;
 };
 
-module.exports.deleteUser = async (token, uid) => {
+module.exports.deleteUser = async (token, uid, docOnly) => {
   return this.currentUser(token).then((user) => {
     if (user.admin === true) {
       // Delete user's doc on Firestore
       admin.firestore().collection("scores").doc(uid).delete();
+
+      if (docOnly === "true") {
+        return { message: `Doc deleted successfully!` };
+      }
 
       // Delete user's account on Authentication
       return admin
         .auth()
         .deleteUser(uid)
         .then(() => {
-          return { message: "Deleted successfully!" };
+          return { message: `Deleted successfully!` };
         })
         .catch((error) => error);
     } else {
