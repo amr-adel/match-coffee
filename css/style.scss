@@ -110,7 +110,6 @@ input[type="submit"],
 @keyframes enlarge {
   0% {
     max-height: 1vh;
-    // width: 10vw;
   }
   99% {
     overflow: hidden;
@@ -118,7 +117,6 @@ input[type="submit"],
   100% {
     max-height: calc(100% - min(20vh, 20vw));
     overflow: auto;
-    // width: auto;
   }
 }
 
