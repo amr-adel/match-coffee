@@ -20,6 +20,15 @@ You lose a bean every 30 secondes, after 12 moves, and after 20 moves.
 
 ---
 
+## Admin stories
+
+- Admin can list all users with their name/email/score/uid.
+- Admin can filter users by email.
+- Admin can delete user.
+- Admin can promote a user to admin and vice versa.
+
+---
+
 ## Credits
 
 - Cards (Coffee Icon Pack) by [AomAm](https://iconscout.com/icon-pack/coffee-3)
