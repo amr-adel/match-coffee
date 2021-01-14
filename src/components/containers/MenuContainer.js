@@ -22,7 +22,7 @@ class MenuContainer extends Component {
 
   hideMenu = (e) => {
     // Hide menu on clicking anywhere outside '.nav' div
-    if (this.state.showMenu && !e.target.closest(".nav"))
+    if (this.state.showMenu && e.target.closest(".nav") == null)
       this.setState({ showMenu: false });
   };
 
